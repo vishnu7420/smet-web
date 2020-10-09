@@ -1,0 +1,106 @@
+<div class="container">
+    <p class="appTitle">Tenants</p>
+    <button class="float-right commonBtn" data-toggle="modal" role="dialog" (click)="openAdd()">Add New
+        Tenant</button><br><br>
+
+
+    <div class="table-area">
+        <table class="table table-borderless" id="my-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Phone Number</th>
+                    <th>Email ID</th>
+                    <th>Password</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tenant of tenants">
+                    <td>{{tenant.name}}</td>
+                    <td><img src="tenant.profile_pic"></td>
+                    <td>{{tenant.phone_number}}</td>
+                    <td>{{tenant.email_id}}</td>
+                    <td>{{tenant.password}}</td>
+                    <td><i class="fa fa-edit" (click)="updatepopup(tenant)"></i></td>
+                </tr>
+        </table>
+    </div>
+
+
+</div>
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Add Tenant
+                <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="dltmodal-content animate modal-body dltBl">
+                <form [formGroup]="userForm">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="avatar-upload text-center">
+                                <!-- -->
+                                <div class="avatar-edit" (change)="selectImage($event)">
+                                    <input type='file' #fileInput (click)="fileInput.value = null" value=""
+                                        id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                    <label for="imageUpload"></label>
+                                </div>
+                                <div class="avatar-preview">
+                                    <img id="imagePreview" [src]="userImage">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Name <span class="star">*</span></label>
+                                <input type="text" class="form-control form-control-sm" placeholder="Enter Name"
+                                    formControlName="name" maxlength="35">
+                                <small class="validationMsg"
+                                    *ngIf="(userForm.get('name').hasError('required') && userForm.get('name').touched)">
+                                    Enter Name </small>
+                            </div>
+                            <div class="form-group">
+                                <label>Email ID <span class="star">*</span></label>
+                                <input type="email" class="form-control form-control-sm" placeholder="Enter Email"
+                                    formControlName="email">
+                                <small class="validationMsg"
+                                    *ngIf="(userForm.get('email').hasError('required') && userForm.get('email').touched) || userForm.get('email').hasError('pattern')">
+                                    Enter Valid Email ID
+                                </small>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number <span class="star">*</span></label>
+                                <input type="tel" class="form-control form-control-sm " formControlName="phone"
+                                    placeholder="phone" maxlength="10">
+                                <small class="validationMsg"
+                                    *ngIf="(userForm.get('phone').hasError('required') && userForm.get('phone').touched) || userForm.get('phone').hasError('pattern')">
+                                    Enter Valid Phone Number
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label>Password <span class="star">*</span></label>
+                                <input type="password" class="form-control form-control-sm" placeholder="Enter Password"
+                                    formControlName="password">
+                                <small class="validationMsg"
+                                    *ngIf="(userForm.get('password').hasError('required') && userForm.get('password').touched)">
+                                    Enter Password</small>
+                            </div>
+                            <button type="submit" [disabled]="!userForm.valid" class="btn btn-info addEditBtn"
+                                (click)="addTenants()" *ngIf="addForm">Add
+                                Tenant</button>
+                            <button type="submit" [disabled]="!userForm.valid" class="btn btn-info addEditBtn"
+                                (click)="updateTenants()" *ngIf="!addForm">Update
+                                Tenant</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,188 @@
+<div class="page-wrapper chiller-theme toggled" [ngStyle]="commonservice.showTour">
+    <main class="page-content">
+        <div class="bgColor">
+            <div class="container">
+                <div class="row" style="height: 4em;">
+                    <div class="col-md-6">
+                        <p class="appTitle">Add Videos</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="adminName">{{ adminName }} <img width="30px" height="30px" [src]="adminImage"
+                                class="rounded-circle"></p>
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div class="col">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3 searchCol">
+                                    <div class="form-inline">
+                                        <input class="form-control form-control-sm ml-3 w-75" type="text" (change)="onChangeEvent($event)" placeholder="College Name"
+                                            aria-label="Search">
+                                        <i class="fa fa-angle-down searchIcon" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary" (click)="reset()">Reset</button>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary addCourseBtn" (click)="openAdd()"><i
+                                            class="fa fa-plus" aria-hidden="true"></i> Add Video</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tableView">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>S.NO</th>
+                                        <th>College Name</th>
+                                        <th>Video URL</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let video of allVideos">
+                                        <td>{{ video.id }}</td>
+                                        <td>{{ video.collage_name }}</td>
+                                        <td><img width="30px" height="30px" [src]="video.image" class="rounded-circle">
+                                            {{ video.url }}</td>
+                                        <td style="text-align: center;">
+                                            <i class="fa fa-trash-o iconEdit" aria-hidden="true" (click)="deleteVideo(video)"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+            </div>
+
+
+
+            <div class="backdrop" [ngStyle]="{'display':display}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" *ngIf="showAdd">
+                            Add Video
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-header" *ngIf="showEdit">
+                            Edit Video
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl">
+                            <form [formGroup]="videoForm">
+
+                                <div style="text-align:center;">
+                                    <img width="80px" height="80px" *ngIf="imageUrl" [src]="imageUrl"
+                                        class="rounded-circle">
+                                    <label class="rounded-circle imgLabel">
+                                        <i class="fa fa-camera" aria-hidden="true"></i><input type="file" formControlName="imageVal" (change)="handleFileInput($event.target.files)"
+                                            hidden>
+                                    </label>
+                                </div>
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.imageVal">
+                                        <div class="error-message" *ngIf="videoForm.get('imageVal').hasError(error.type) && (videoForm.get('imageVal').dirty || videoForm.get('imageVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>College</label>
+                                <select class="form-control" [(ngModel)]="collegeId" formControlName="colgVal">
+                                    <option *ngFor="let college of colleges;let x = index" [ngValue]="college.id">{{
+                                        college.collage_name }}</option>
+                                </select>
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.colgVal">
+                                        <div class="error-message" *ngIf="videoForm.get('colgVal').hasError(error.type) && (videoForm.get('colgVal').dirty || videoForm.get('colgVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Video URL</label>
+                                <input class="form-control" [(ngModel)]="videoUrl" formControlName="videoVal">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.videoVal">
+                                        <div class="error-message" *ngIf="videoForm.get('videoVal').hasError(error.type) && (videoForm.get('videoVal').dirty || videoForm.get('videoVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="addBtn" *ngIf="showAdd">
+                                    <button class="commonBtn mt-2" [disabled]="!videoForm.valid" (click)="addVideo()">
+                                        Add Video</button>
+                                </div>
+                                <div class="addBtn" *ngIf="showEdit">
+                                    <button class="commonBtn mt-2" (click)="updateVideo()" [disabled]="!videoForm.valid">
+                                        Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="backdrop" [ngStyle]="{'display':displayDelete}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':displayDelete}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl mb-3" style="text-align:center;">
+                            <p>Do you want to delete Degree ?</p>
+                            <button type="submit" class="btn btn-success" (click)="delete()" style="width: 20%;">Yes</button>
+                            <button type="submit" class="btn btn-danger" (click)="onCloseHandled()" style="width: 20%;margin-left: 0.3em;">No</button><br><br>
+                            <p class="error" *ngIf="showErr">{{ deleteErr }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<!-- <div class="container">
+    <p class="appTitle">Add Videos</p>
+
+    <div class="inputFields">
+        <form>
+            <div style="text-align:center;">
+                <img width="80px" height="80px" *ngIf="imageUrl" [src]="imageUrl" class="rounded-circle">
+                <label class="rounded-circle imgLabel">
+                    <i class="fa fa-camera" aria-hidden="true"></i><input type="file" (change)="handleFileInput($event.target.files)"
+                        hidden>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>Select College</label>
+                <select class="form-control" [(ngModel)]="collegeId" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let college of colleges;let x = index" [ngValue]="college.id">{{ college.collage_name }}</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Video URL</label>
+                <input class="form-control" [(ngModel)]="videoUrl" [ngModelOptions]="{standalone: true}">
+            </div><br>
+           
+            <button type="submit" class="btn btn-primary commonBtn" (click)="addVideoURL()">Add Video</button>
+        </form>
+    </div>
+</div> -->

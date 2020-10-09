@@ -1,0 +1,138 @@
+<div class="page-wrapper chiller-theme toggled" [ngStyle]="commonservice.showTour">
+    <main class="page-content">
+        <div class="bgColor">
+            <div class="container">
+                <div class="row" style="height: 4em;">
+                    <div class="col-md-6">
+                        <p class="appTitle">Ad Images</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="adminName">{{ adminName }} <img width="30px" height="30px" style="margin-left:0.5em;" [src]="adminImage"
+                                class="rounded-circle"></p>
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div class="col">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3 searchCol">
+                                    <div class="form-inline">
+                                        <input class="form-control form-control-sm ml-3 w-75" type="text" (change)="onChangeEvent($event)" placeholder="Country"
+                                            aria-label="Search">
+                                        <i class="fa fa-angle-down searchIcon" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary" (click)="reset()">Reset</button>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary addCourseBtn" (click)="openAdd()"><i
+                                            class="fa fa-plus" aria-hidden="true"></i> Add images</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h5>Dashboard</h5>
+                <div class="row">
+                    <div class="col-md-3 degreeContent" *ngFor="let img of imgData">
+                        <p style="text-align: left;"><img width="30px" height="30px" class="rounded-circle imgTable"
+                                [src]="img.image"> India
+                            <i class="fa fa-trash-o iconEdit" aria-hidden="true" (click)="deleteImage(img)"></i>
+                            <i class="fa fa-pencil iconEdit" (click)="editImage(img)" aria-hidden="true"></i></p>
+                    </div>
+                </div>
+
+                <h5>Trending Courses</h5>
+                <div class="row">
+                    <div class="col-md-3 degreeContent" *ngFor="let trending of trendingCourse">
+                        <p style="text-align: left;"><img width="30px" height="30px" class="rounded-circle imgTable"
+                                [src]="trending.image"> {{ trending.country }}
+                            <i class="fa fa-trash-o iconEdit" aria-hidden="true" (click)="deleteImage(trending)"></i>
+                            <i class="fa fa-pencil iconEdit" (click)="editImage(trending)" aria-hidden="true"></i></p>
+                    </div>
+                </div>
+
+                <h5>Foreign University</h5>
+                <div class="row">
+                    <div class="col-md-3 degreeContent" *ngFor="let foreign of foreignCourse">
+                        <p style="text-align: left;"><img width="30px" height="30px" class="rounded-circle imgTable"
+                                [src]="foreign.image"> {{ foreign.country }}
+                            <i class="fa fa-trash-o iconEdit" aria-hidden="true" (click)="deleteImage(foreign)"></i>
+                            <i class="fa fa-pencil iconEdit" (click)="editImage(foreign)" aria-hidden="true"></i></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="backdrop" [ngStyle]="{'display':display}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" *ngIf="showAdd">
+                            Add Images
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-header" *ngIf="showEdit">
+                            Edit Images
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl">
+
+                            <div style="text-align:center;">
+                                <img width="80px" height="80px" *ngIf="imageUrl" [src]="imageUrl" class="rounded-circle">
+                                <label class="rounded-circle imgLabel">
+                                    <i class="fa fa-camera" aria-hidden="true"></i><input type="file" (change)="handleFileInput($event.target.files)"
+                                        hidden>
+                                </label>
+                            </div>
+
+                            <label style="margin-top:1em;">Select Country</label>
+                            <select class="form-control" [(ngModel)]="countryid">
+                                <option *ngFor="let country of countryVal;let x = index" [ngValue]="country.id">{{
+                                    country.country }}</option>
+                            </select>
+
+                            <label style="margin-top:1em;">Select College Type</label>
+                            <select class="form-control" [(ngModel)]="imgTypeId">
+                                <option *ngFor="let image of imgType;let x = index" [ngValue]="image.id">{{ image.type
+                                    }}</option>
+                            </select>
+                            <br>
+
+                            <div class="addBtn" *ngIf="showAdd">
+                                <button class="commonBtn mt-2" (click)="addImages()">Add Image</button>
+                            </div>
+
+                            <div class="addBtn" *ngIf="showEdit">
+                                <button class="commonBtn mt-2" (click)="imgUpdate()">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="backdrop" [ngStyle]="{'display':displayDelete}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':displayDelete}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl mb-3" style="text-align:center;">
+                            <p>Do you want to delete College ?</p>
+                            <button type="submit" class="btn btn-success" (click)="delete()" style="width: 20%;">Yes</button>
+                            <button type="submit" class="btn btn-danger" (click)="onCloseHandled()" style="width: 20%;margin-left: 0.3em;">No</button><br><br>
+                            <p class="error" *ngIf="showErr">{{ deleteErr }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>

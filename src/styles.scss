@@ -1,0 +1,197 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/scss/bootstrap.scss';
+
+.mainContent {
+    width: 50% !important;
+}
+
+app-signin {
+    background: url(./assets/bg.png);
+}
+
+@font-face {
+    font-family: 'monster';
+    font-style: normal;
+    font-weight: 500;
+    src: url(~src/assets/eras-bold-itc/Montserrat-SemiBold_72e0d276db1e5baa6f2b4caddfef5b93.ttf);
+}
+
+* {
+    font-family: 'monster';
+}
+
+.container {
+    margin-top: 45px;
+}
+
+app-page-content {
+    width: 100%;
+    // background: #EDF1F2;
+    height: calc(100vh - 0vh);
+    overflow: auto;
+}
+
+.appTitle {
+    text-decoration: underline;
+    -webkit-text-decoration-color: #6bc772;
+    /* Safari */
+    text-decoration-color: #6bc772;
+}
+
+.commonBtn {
+    border: none;
+    background: #1d1d50;
+    padding: 3px;
+    border-radius: 5px;
+    color: white;
+}
+
+accordion-group {
+    font-weight: 500;
+    outline: none;
+
+    .card {
+        border: none !important;
+        background-color: transparent !important;
+    }
+
+    .card-header {
+        background-color: transparent !important;
+        border-bottom: none !important;
+        padding: 0.5rem 1.25rem !important;
+    }
+
+    .card-body {
+        padding: 0 !important;
+        padding-left: 0.8rem !important;
+    }
+
+    .btn-link {
+        color: white !important;
+        font-weight: 500;
+    }
+}
+
+/* scroll indicator custom design */
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 4px;
+    scroll-behavior: smooth !important;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #FFFFFF;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #6bc772;
+    border-radius: 13px !important;
+}
+
+.modal {
+    z-index: 9999 !important;
+
+    .modal-header {
+        border-bottom: none !important;
+    }
+}
+
+.backdrop {
+    // background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+}
+
+.close {
+    outline: none;
+}
+
+.validationMsg,
+.star {
+    color: red;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .mainContent {
+        width: 100% !important;
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #fbfbfb, }
+
+textarea:focus,
+.custom-select:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {   
+  border-color: #ced4da;
+  box-shadow: 0 0px 0px 0;
+  outline: 0 none;
+}
+
+.page-content {
+    height: 100%;
+  } 
+
+.page-wrapper .sidebar-wrapper,
+.sidebar-wrapper .sidebar-brand>a,
+.sidebar-wrapper .sidebar-dropdown>a:after,
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before,
+.sidebar-wrapper ul li a i,
+.page-wrapper .page-content,
+.sidebar-wrapper .sidebar-search input.search-menu,
+.sidebar-wrapper .sidebar-search .input-group-text,
+.sidebar-wrapper .sidebar-menu ul li a,
+.show-sidebar,
+.close-sidebar {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.page-wrapper .page-content {
+    display: inline-block;
+    width: 100%;
+    padding-left: 0px;
+    padding-top: 0px;
+  }
+  
+  .page-wrapper .page-content>div {
+    padding: 8px 15px;
+  }
+  
+  .page-wrapper .page-content {
+    overflow-x: hidden;
+  }
+  
+
+@media screen and (min-width: 768px) {
+    .page-wrapper.toggled .page-content {
+      padding-left: 240px;
+    }
+  }

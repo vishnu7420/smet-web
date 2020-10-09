@@ -1,0 +1,549 @@
+<div class="page-wrapper chiller-theme toggled" [ngStyle]="commonservice.showTour">
+    <main class="page-content">
+        <div class="bgColor">
+            <!-- <div class="container"> -->
+                <div class="row" style="height: 4em;">
+                    <div class="col-md-6">
+                        <p class="appTitle">Senthur Murugan Student College Admission Point</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="adminName">{{ adminName }} <img width="30px" height="30px" style="margin-left:0.5em;"
+                                [src]="adminImage" class="rounded-circle"></p>
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div class="col">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3 dashCol">
+                                    <div>
+                                        <img class="collegeImg" src="../../../assets/side-menu/college.png">
+                                        <p>{{ totalColg }}</p>
+                                    </div>
+                                    <h6 class="card-title">Total Colleges</h6>
+                                </div>
+
+                                <div class="col-md-3 dashCol" style="background: #fd6084;">
+                                    <div class="collegeDiv">
+                                        <img class="collegeImg" src="../../../assets/side-menu/course.png">
+                                        <p>{{ totalCourse }}</p>
+                                    </div>
+                                    <h6 class="card-title">Total Courses</h6>
+                                </div>
+
+                                <div class="col-md-3 dashCol" style="background: #fbbd4b;">
+                                    <div class="collegeDiv">
+                                        <img class="collegeImg" src="../../../assets/side-menu/student.png">
+                                        <p>{{ totalStudents }}</p>
+                                    </div>
+                                    <h6 class="card-title">Total Students</h6>
+                                </div>
+                                <div class="col-md-3 dashCol" style="background: #ba40f9;">
+                                    <div class="collegeDiv">
+                                        <img class="collegeImg" src="../../../assets/side-menu/trending-courses.png">
+                                        <p>{{ trendingCourse }}</p>
+                                    </div>
+                                    <h6 class="card-title">Trending Courses</h6>
+                                </div>
+
+                                <div class="col-md-3 dashCol" style="background:#65c76c;">
+                                    <div class="collegeDiv">
+                                        <img class="collegeImg" src="../../../assets/side-menu/foreign-university.png">
+                                        <p>{{ abroardUniver }}</p>
+                                    </div>
+                                    <h6 class="card-title">Abroad University</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div class="col">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6 searchCol">
+                                    <div class="form-inline">
+                                        <input class="form-control form-control-sm ml-3 w-75" type="text" (change)="onChangeEvent($event)" 
+                                        placeholder="Enter Student Name/Phone Number" aria-label="Search">
+                                        <i class="fa fa-angle-down searchIcon" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-3 searchCol">
+                                <div class="form-inline">
+                                    <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Email"
+                                        aria-label="Search">
+                                    <i class="fa fa-angle-down searchIcon" aria-hidden="true"></i>
+                                </div>
+                            </div> -->
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary" (click)="reset()">Reset</button>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary" (click)="openAdd()"><i class="fa fa-plus"
+                                            aria-hidden="true"></i>Add Students</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tableView">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>S.NO</th>
+                                    <th>User Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Email Address</th>
+                                    <th>Father's Name</th>
+                                    <th>Date of Birth</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let student of allStudents">
+                                    <td>{{ student.id }}</td>
+                                    <td><img width="30px" height="30px" [src]="student.image" class="rounded-circle">
+                                        {{ student.user_name }}</td>
+                                    <td>{{ student.phone_num }}</td>
+                                    <td>{{ student.email_id }}</td>
+                                    <td>{{ student.father_name }}</td>
+                                    <td>{{ student.dateOfBirth }}</td>
+                                    <td>{{ student.displayDate }}</td>
+                                    <td>
+                                        <i class="fa fa-pencil iconEdit" aria-hidden="true" (click)="editStudent(student)"></i>
+                                        <!-- <i class="fa fa-trash-o iconEdit" aria-hidden="true" (click)="deleteStudent(student)"></i> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="backdrop" [ngStyle]="{'display':display}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" *ngIf="showAdd">
+                            Add Students
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-header" *ngIf="showEdit">
+                            Edit Students
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl">
+                            <form [formGroup]="studentForm">
+                                <div style="text-align:center;">
+                                    <img width="80px" height="80px" *ngIf="imageUrl" [src]="imageUrl" class="rounded-circle">
+                                    <label class="rounded-circle imgLabel">
+                                        <i class="fa fa-camera" aria-hidden="true"></i>
+                                        <input type="file" formControlName="studentImg" (change)="handleFileInput($event.target.files)"
+                                            hidden>
+                                    </label>
+                                </div>
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.studentImg">
+                                        <div class="error-message" *ngIf="studentForm.get('studentImg').hasError(error.type) && (studentForm.get('studentImg').dirty || studentForm.get('studentImg').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>User Role</label>
+                                    <select class="form-control" formControlName="userRoleVal" [(ngModel)]="userRole">
+                                        <option *ngFor="let users of userRoleData;let x = index" [ngValue]="users.id">{{
+                                            users.roles }}</option>
+                                    </select>
+                                </div>
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.userRoleVal">
+                                        <div class="error-message" *ngIf="studentForm.get('userRoleVal').hasError(error.type) && (studentForm.get('userRoleVal').dirty || studentForm.get('userRoleVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <label>Student Name</label>
+                                <input type="text" class="form-control" formControlName="studentNameVal" [(ngModel)]="studentName">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.studentNameVal">
+                                        <div class="error-message" *ngIf="studentForm.get('studentNameVal').hasError(error.type) && (studentForm.get('studentNameVal').dirty || studentForm.get('studentNameVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Whatsapp Number</label>
+                                <input type="text" class="form-control" formControlName="phoneno" [(ngModel)]="phonenumber"
+                                    maxlength="10" minlength="10">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.phoneno">
+                                        <div class="error-message" *ngIf="studentForm.get('phoneno').hasError(error.type) && (studentForm.get('phoneno').dirty || studentForm.get('phoneno').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Email Address</label>
+                                <input type="email" class="form-control" formControlName="email" [(ngModel)]="emailAddress">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.email">
+                                        <div class="error-message" *ngIf="studentForm.get('email').hasError(error.type) && (studentForm.get('email').dirty || studentForm.get('email').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>School or college name</label>
+                                <input type="text" class="form-control" formControlName="colgVal" [(ngModel)]="clgName">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.colgVal">
+                                        <div class="error-message" *ngIf="studentForm.get('colgVal').hasError(error.type) && (studentForm.get('colgVal').dirty || studentForm.get('colgVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Father Name</label>
+                                <input type="text" class="form-control" formControlName="fatherNameVal" [(ngModel)]="fatherName">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.fatherNameVal">
+                                        <div class="error-message" *ngIf="studentForm.get('fatherNameVal').hasError(error.type) && (studentForm.get('fatherNameVal').dirty || studentForm.get('fatherNameVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Educational Qualification</label>
+                                <input type="text" class="form-control" formControlName="qualificationVal" [(ngModel)]="qualification">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.qualificationVal">
+                                        <div class="error-message" *ngIf="studentForm.get('qualificationVal').hasError(error.type) && (studentForm.get('qualificationVal').dirty || studentForm.get('qualificationVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Place</label>
+                                <input type="text" class="form-control" formControlName="placeVal" [(ngModel)]="place">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.placeVal">
+                                        <div class="error-message" *ngIf="studentForm.get('placeVal').hasError(error.type) && (studentForm.get('placeVal').dirty || studentForm.get('placeVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>District</label>
+                                <select class="form-control custom-select custom-select-sm" formControlName="districtVal"
+                                    [(ngModel)]="district">
+                                    <option *ngFor="let district of disrictData;let x = index" [ngValue]="district.id">{{
+                                        district.district }}</option>
+                                </select>
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.districtVal">
+                                        <div class="error-message" *ngIf="studentForm.get('districtVal').hasError(error.type) && (studentForm.get('districtVal').dirty || studentForm.get('districtVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Date of Birth</label>
+                                <input class="form-control" [(ngModel)]="dob" type="date" formControlName="dobVal">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.dobVal">
+                                        <div class="error-message" *ngIf="studentForm.get('dobVal').hasError(error.type) && (studentForm.get('dobVal').dirty || studentForm.get('dobVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="showAdd">
+                                    <label>Blood Group</label>
+                                    <input type="text" class="form-control" formControlName="bloodGroupVal" [(ngModel)]="bloodGroup">
+                                    <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.bloodGroupVal">
+                                            <div class="error-message" *ngIf="studentForm.get('bloodGroupVal').hasError(error.type) && (studentForm.get('bloodGroupVal').dirty || studentForm.get('bloodGroupVal').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Password</label>
+                                <input type="password" formControlName="paswdVal" class="form-control" [(ngModel)]="password">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.paswdVal">
+                                        <div class="error-message" *ngIf="studentForm.get('paswdVal').hasError(error.type) && (studentForm.get('paswdVal').dirty || studentForm.get('paswdVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Confirm Password</label>
+                                <input type="password" formControlName="confirmPass" class="form-control" [(ngModel)]="confirmPassword">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.confirmPass">
+                                        <div class="error-message" *ngIf="studentForm.get('confirmPass').hasError(error.type) && (studentForm.get('confirmPass').dirty || studentForm.get('confirmPass').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p *ngIf="showErr" class="error-messages" style="color:red;font-size: 0.7em;">Password
+                                    and
+                                    Confirm
+                                    Passwords should be the same.</p>
+
+                                <label>Preferred Courses</label>
+                                <input type="text" formControlName="preferredCourseVal" class="form-control"
+                                    [(ngModel)]="preferredCourse">
+                                <p class="minmaxTxt">Seperate each course with commas</p>
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.preferredCourseVal">
+                                        <div class="error-message" *ngIf="studentForm.get('preferredCourseVal').hasError(error.type) && (studentForm.get('preferredCourseVal').dirty || studentForm.get('preferredCourseVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="showAdd">
+                                    <label>Referral Code</label>
+                                    <input type="text" formControlName="referralVal" class="form-control" [(ngModel)]="referral">
+                                    <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.referralVal">
+                                            <div class="error-message" *ngIf="studentForm.get('referralVal').hasError(error.type) && (studentForm.get('referralVal').dirty || studentForm.get('referralVal').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="addBtn" *ngIf="showAdd">
+                                    <button class="commonBtn mt-2" (click)="addStudent()">Add
+                                        Student</button>
+                                </div>
+
+                                <div class="addBtn" *ngIf="showEdit">
+                                    <button class="commonBtn mt-2" (click)="updateStudent()">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+</div>
+
+
+
+<!-- <div class="page-wrapper chiller-theme toggled">
+    <i class="fa fa-bars" class="show-sidebar" (click)="toggleNav()" aria-hidden="true"></i>
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <img class="appLogo" src="../../../../assets/web-logo.png">
+                <div class="close-sidebar">
+                    <i (click)="closeNav()" class="fa fa-times" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="sidebar-header">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                        alt="User picture">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">Jhon
+                        <strong>Smith</strong>
+                    </span>
+                    <span class="user-role">Administrator</span>
+                    <span class="user-status">
+                        <i class="fa fa-circle"></i>
+                        <span>Online</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="sidebar-search">
+                <div>
+                    <div class="input-group">
+                        <input type="text" class="form-control search-menu" placeholder="Search...">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="fa fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                            <span class="badge badge-pill badge-warning">New</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="#">Dashboard 1
+                                        <span class="badge badge-pill badge-success">Pro</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">Dashboard 2</a>
+                                </li>
+                                <li>
+                                    <a href="#">Dashboard 3</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span>E-commerce</span>
+                            <span class="badge badge-pill badge-danger">3</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="#">Products
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">Orders</a>
+                                </li>
+                                <li>
+                                    <a href="#">Credit cart</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="far fa-gem"></i>
+                            <span>Components</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="#">General</a>
+                                </li>
+                                <li>
+                                    <a href="#">Panels</a>
+                                </li>
+                                <li>
+                                    <a href="#">Tables</a>
+                                </li>
+                                <li>
+                                    <a href="#">Icons</a>
+                                </li>
+                                <li>
+                                    <a href="#">Forms</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="fa fa-chart-line"></i>
+                            <span>Charts</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="#">Pie chart</a>
+                                </li>
+                                <li>
+                                    <a href="#">Line chart</a>
+                                </li>
+                                <li>
+                                    <a href="#">Bar chart</a>
+                                </li>
+                                <li>
+                                    <a href="#">Histogram</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="fa fa-globe"></i>
+                            <span>Maps</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="#">Google maps</a>
+                                </li>
+                                <li>
+                                    <a href="#">Open street map</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="header-menu">
+                        <span>Extra</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-book"></i>
+                            <span>Documentation</span>
+                            <span class="badge badge-pill badge-primary">Beta</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-calendar"></i>
+                            <span>Calendar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-folder"></i>
+                            <span>Examples</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <a href="#">
+                <i class="fa fa-bell"></i>
+                <span class="badge badge-pill badge-warning notification">3</span>
+            </a>
+            <a href="#">
+                <i class="fa fa-envelope"></i>
+                <span class="badge badge-pill badge-success notification">7</span>
+            </a>
+            <a href="#">
+                <i class="fa fa-cog"></i>
+                <span class="badge-sonar"></span>
+            </a>
+            <a href="#">
+                <i class="fa fa-power-off"></i>
+            </a>
+        </div>
+    </nav>
+
+</div> -->

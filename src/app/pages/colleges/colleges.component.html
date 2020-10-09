@@ -1,0 +1,286 @@
+<div class="page-wrapper chiller-theme toggled" [ngStyle]="commonservice.showTour">
+    <main class="page-content">
+        <div class="bgColor">
+            <div class="container">
+                <div class="row" style="height: 4em;">
+                    <div class="col-md-6">
+                        <p class="appTitle">Colleges</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="adminName">{{ adminName }} <img width="30px" height="30px" style="margin-left:0.5em;" [src]="adminImage"
+                                class="rounded-circle"></p>
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div class="col">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3 searchCol">
+                                    <div class="form-inline">
+                                        <input class="form-control form-control-sm ml-3 w-75" (change)="onChangeEvent($event)"
+                                            type="text" placeholder="College Name" aria-label="Search">
+                                        <i class="fa fa-angle-down searchIcon" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <div class="form-inline">
+                                        <input class="form-control form-control-sm ml-3 w-75" (change)="onChangeEvent($event)"
+                                            type="text" placeholder="State" aria-label="Search">
+                                        <i class="fa fa-angle-down searchIcon" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <div class="form-inline">
+                                        <input class="form-control form-control-sm ml-3 w-75" (change)="onChangeEvent($event)"
+                                            type="text" placeholder="City" aria-label="Search">
+                                        <i class="fa fa-angle-down searchIcon" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary" (click)="reset()">Reset</button>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary addCourseBtn" (click)="openAdd()"><i
+                                            class="fa fa-plus" aria-hidden="true"></i> Add College</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tableView">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>S.NO</th>
+                                    <th>Colleges</th>
+                                    <th>Contact Number</th>
+                                    <th>Email ID</th>
+                                    <th>Objectives</th>
+                                    <th>Address</th>
+                                    <th>District</th>
+                                    <th>State</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let college of searchData">
+                                    <td>{{ college.id }}</td>
+                                    <td><img width="30px" height="30px" [src]="colloege.image" class="rounded-circle">
+                                        {{ college.collage_name }}</td>
+                                    <td>{{ college.contact_no }}</td>
+                                    <td>{{ college.contact_email }}</td>
+                                    <td style="width: 20%;text-align: justify;">
+                                        <p style="word-wrap: break-word;">{{ college.description }}</p>
+                                    </td>
+                                    <td>{{ college.address }}</td>
+                                    <td>{{ college.districtName }}</td>
+                                    <td>{{ college.stateName }}</td>
+                                    <td>{{ college.displayDate }}</td>
+                                    <td style="text-align: center;">
+                                        <i class="fa fa-pencil iconEdit" aria-hidden="true" (click)="editCollege(college)"></i>
+                                        <i class="fa fa-trash-o iconEdit" aria-hidden="true" (click)="deleteCollege(college)"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="backdrop" [ngStyle]="{'display':display}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" *ngIf="showAdd">
+                            Add College
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-header" *ngIf="showEdit">
+                            Edit College
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl">
+                            <form [formGroup]="addCollegeForm">
+                                <div style="text-align:center;">
+                                    <img width="80px" height="80px" *ngIf="imageUrl" [src]="imageUrl" class="rounded-circle">
+                                    <label class="rounded-circle imgLabel">
+                                        <i class="fa fa-camera" aria-hidden="true"></i>
+                                        <input type="file" formControlName="clgImg" (change)="handleFileInput($event.target.files)"
+                                            hidden>
+                                    </label>
+                                </div>
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.clgImg">
+                                        <div class="error-message" *ngIf="addCollegeForm.get('clgImg').hasError(error.type) && (addCollegeForm.get('clgImg').dirty || addCollegeForm.get('clgImg').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>College Name</label>
+                                <input type="text" class="form-control" formControlName="clgName" [(ngModel)]="collegeName">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.clgName">
+                                        <div class="error-message" *ngIf="addCollegeForm.get('clgName').hasError(error.type) && (addCollegeForm.get('clgName').dirty || addCollegeForm.get('clgName').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Phone Number</label>
+                                <input type="text" class="form-control" formControlName="phoneno" [(ngModel)]="phonenumber"
+                                    maxlength="10" minlength="10">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.phoneno">
+                                        <div class="error-message" *ngIf="addCollegeForm.get('phoneno').hasError(error.type) && (addCollegeForm.get('phoneno').dirty || addCollegeForm.get('phoneno').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Email Address</label>
+                                <input type="email" class="form-control" formControlName="email" [(ngModel)]="emailAddress">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.email">
+                                        <div class="error-message" *ngIf="addCollegeForm.get('email').hasError(error.type) && (addCollegeForm.get('email').dirty || addCollegeForm.get('email').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Address</label>
+                                <textarea type="text" class="form-control" formControlName="clgAddress" rows="2"
+                                    [(ngModel)]="address"></textarea>
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.clgAddress">
+                                        <div class="error-message" *ngIf="addCollegeForm.get('clgAddress').hasError(error.type) && (addCollegeForm.get('clgAddress').dirty || addCollegeForm.get('clgAddress').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Select District</label>
+                                        <select class="form-control custom-select custom-select-sm" formControlName="clgDistrict"
+                                            [(ngModel)]="city">
+                                            <option *ngFor="let district of disrictData;let x = index" [ngValue]="district.id">{{
+                                                district.district }}</option>
+                                        </select>
+                                        <div class="error-messages">
+                                            <div *ngFor="let error of error_messages.clgDistrict">
+                                                <div class="error-message" *ngIf="addCollegeForm.get('clgDistrict').hasError(error.type) && (addCollegeForm.get('clgDistrict').dirty || addCollegeForm.get('clgDistrict').touched)">
+                                                    {{ error.message }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Select State</label>
+                                        <select class="form-control custom-select custom-select-sm" formControlName="clgState"
+                                            [(ngModel)]="stateid">
+                                            <option *ngFor="let state of stateData;let x = index" [ngValue]="state.id">{{
+                                                state.state }}</option>
+                                        </select>
+                                        <div class="error-messages">
+                                            <div *ngFor="let error of error_messages.clgState">
+                                                <div class="error-message" *ngIf="addCollegeForm.get('clgState').hasError(error.type) && (addCollegeForm.get('clgState').dirty || addCollegeForm.get('clgState').touched)">
+                                                    {{ error.message }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Objectives</label>
+                                <textarea type="text" class="form-control" formControlName="objectivesVal" rows="2"
+                                    [(ngModel)]="objectives"></textarea>
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.objectivesVal">
+                                        <div class="error-message" *ngIf="addCollegeForm.get('objectivesVal').hasError(error.type) && (addCollegeForm.get('objectivesVal').dirty || addCollegeForm.get('objectivesVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="showAdd">
+                                    <label>Courses</label>
+                                    <div class="row" *ngFor="let scope of scopeData; let i=index">
+                                        <div class="col-md-4">
+                                            <div class="checkboxDesign">
+                                                <input type="checkbox" formControlName="checkVal" [(ngModel)]="scope.check"
+                                                    class="form-check-input" [ngValue]="scope.id" (change)="onCheckChange($event)">
+                                                <span>{{ scope.degree }} - {{ scope.courses }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Fees</label>
+                                            <input type="text" class="form-control" formControlName="feesVal" [ngStyle]="{'pointer-events':scope.check ? 'auto' : 'none' }"
+                                                [(ngModel)]="scope.fees" [ngValue]="scope.fees" [ngModelOptions]="{standalone: true}">
+                                            <div class="error-messages">
+                                                <div *ngFor="let error of error_messages.feesVal">
+                                                    <div class="error-message" *ngIf="addCollegeForm.get('feesVal').hasError(error.type) && (addCollegeForm.get('feesVal').dirty || addCollegeForm.get('feesVal').touched)">
+                                                        {{ error.message }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label>Trust Fees</label>
+                                            <input type="text" class="form-control" formControlName="trustFeesVal"
+                                                [ngStyle]="{'pointer-events':scope.check ? 'auto' : 'none' }"
+                                                [(ngModel)]="scope.trustFees" [ngValue]="scope.trustFees"
+                                                [ngModelOptions]="{standalone: true}">
+                                            <div class="error-messages">
+                                                <div *ngFor="let error of error_messages.trustFeesVal">
+                                                    <div class="error-message" *ngIf="addCollegeForm.get('trustFeesVal').hasError(error.type) && (addCollegeForm.get('trustFeesVal').dirty || addCollegeForm.get('trustFeesVal').touched)">
+                                                        {{ error.message }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="addBtn" *ngIf="showAdd">
+                                    <button class="commonBtn mt-2" (click)="addCollege()">Add
+                                        College</button>
+                                </div>
+
+                                <div class="addBtn" *ngIf="showEdit">
+                                    <button class="commonBtn mt-2" (click)="updateCollege()">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="backdrop" [ngStyle]="{'display':displayDelete}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':displayDelete}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl mb-3" style="text-align:center;">
+                            <p>Do you want to delete College ?</p>
+                            <button type="submit" class="btn btn-success" (click)="delete()" style="width: 20%;">Yes</button>
+                            <button type="submit" class="btn btn-danger" (click)="onCloseHandled()" style="width: 20%;margin-left: 0.3em;">No</button><br><br>
+                            <p class="error" *ngIf="showErr">{{ deleteErr }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>

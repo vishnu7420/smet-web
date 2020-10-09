@@ -1,0 +1,193 @@
+.bgColor{
+    background-color: #fbfbfb !important;
+    height: 100%;
+}
+
+.container{
+    margin-top: 0px;
+}   
+
+.adminName{
+    font-size: 0.8em;
+    text-align: right;
+    margin: 1em;
+    color: #939393;
+}
+
+.searchCol{
+    border-radius: 10px;
+    flex: 0 0 17% !important;
+    margin: 0em;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    .ml-3{
+        margin-left: 0px !important;
+    }
+
+    .searchIcon{
+        border: 1px solid #ced4da;
+        height: calc(1.5em + 0.5rem + 2px);
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        border-left: 0px;
+        font-size: 0.8em;
+        border-radius: 0px 20px 20px 0px;
+    }
+
+    .form-control{
+        border-radius: 0px;
+        border-right: 0px !important;
+        font-size: 0.8em;
+        border-radius: 20px 0px 0px 20px;
+        margin-bottom: 0px !important;
+    }
+
+    .btn{
+        border-radius: 20px;
+        width: 75%;
+        font-size: 0.8em;
+    }
+}
+
+.degreeContent{
+    background-color: #fff;
+    text-align: center;
+    height: 4em;
+    padding: 1em 3em;
+    border-radius: 10px;
+    margin: 0.5em;
+    font-size: 0.8em;
+    color:#939393;
+    font-weight: normal;
+}
+
+.iconEdit{
+    float: right !important;
+    position: relative;
+    top: 0.51em;
+}
+
+.appTitle{
+    padding-top: 1em;
+    margin-bottom: 3em;
+    text-decoration: none;
+    color: #939393;
+}
+
+.form-control{
+    margin-bottom: 0.5em;
+    font-size: 0.8em;
+    height: calc(1.3em + 0.70rem + 2px);
+}
+
+.addCourseBtn{
+    margin-right: 0.3em;
+    font-size: 0.8em;
+    background-color: #6bc772;
+    border-color: #6bc772;
+}
+
+label{
+ font-size: 0.7em !important; 
+ margin-bottom: 0.3em;  
+}
+
+option:focus,
+option:active,
+option:hover {
+  text-decoration: none;
+  border-radius: 0px;
+  background-color: #33af66;
+  border-color: #33af66;
+  color: #fff !important;
+  border-left:3px solid #fff;
+}
+
+.imgLabel{
+    background: #6bc772;
+    color: #fff;
+    width: 30px;
+    padding: 0.4em 0.5em;
+    position: absolute;
+    top: 55px;
+    left: 21em;
+    font-size: 0.8em !important;
+}
+
+.modal-header{
+    padding: 0.5em 1em;
+}
+
+.addBtn{
+    text-align: center;
+}
+
+.commonBtn{
+    padding: 0.5em 1em;
+    background-color: #6bc772 !important;
+    border-radius: 30px;
+    font-size: 0.9em;
+}
+
+.error-messages{
+    font-size: 0.7em;
+    color: red;
+    font-weight: 100;
+}
+
+.addBtn{
+    text-align: center;
+
+    .commonBtn{
+        padding: 0.5em 1em;
+    }
+}
+
+.addCourseBtn{
+    margin-right: 0.3em;
+    font-size: 0.8em;
+}
+
+label{
+    font-size: 0.8em;
+}
+
+.uploadImage{
+    border: 1px solid #ccc;
+    padding: 0.6em;
+    border-radius: 5px;
+    width: 100%;
+
+    .iconCamera{
+        float: right;
+        position: relative;
+        top: 0.2em;
+    }
+}
+.iconDelete{
+    position: absolute;
+    left: 8.6em;
+    font-size: 1em;
+    background-color: #21a956;
+    border-radius: 5px;
+    padding: 0.3em;
+    color: #fff;
+    bottom: 0.4em;
+}
+.multipleImg{
+    margin-right: 0.3em;
+}
+
+.displayImages{
+    h2{
+        font-size: 0.9em;
+        color: #939393;
+        padding: 0.5em;
+    }
+
+    .clgImg{
+        border-radius: 10px;
+    }
+}

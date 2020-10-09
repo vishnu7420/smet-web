@@ -1,0 +1,268 @@
+<div class="page-wrapper chiller-theme toggled" [ngStyle]="commonservice.showTour">
+    <main class="page-content">
+        <div class="bgColor">
+            <div class="container">
+                <div class="row" style="height: 4em;">
+                    <div class="col-md-6">
+                        <p class="appTitle">Course Details</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="adminName">{{ adminName }} <img width="30px" height="30px" style="margin-left:0.5em;" [src]="adminImage"
+                                class="rounded-circle"></p>
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div class="col">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6 searchCol">
+                                    <div class="form-inline">
+                                        <input class="form-control form-control-sm ml-4 w-75" type="text" (change)="onChangeEvent($event)" 
+                                        placeholder="Enter Course/Course Type/Degree" aria-label="Search">
+                                        <i class="fa fa-angle-down searchIcon" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary" (click)="reset()">Reset</button>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary addCourseBtn" (click)="openAdd()"><i
+                                            class="fa fa-plus" aria-hidden="true"></i> Course Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tableView">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>S.NO</th>
+                                    <th>Degree</th>
+                                    <th>Course Type</th>
+                                    <th>Course</th>
+                                    <!-- <th>Date</th> -->
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let coursedetail of allCourseDetails">
+                                    <td>{{ coursedetail.id }}</td>
+                                    <td>{{ coursedetail.degree }}</td>
+                                    <td>{{ coursedetail.type }}</td>
+                                    <td>{{ coursedetail.courses }}</td>
+                                    <!-- <td>23-09-2020</td> -->
+                                    <td>
+                                        <i class="fa fa-trash-o iconEdit" aria-hidden="true" (click)="deleteCourse(coursedetail)"></i>
+                                        <i class="fa fa-pencil iconEdit" aria-hidden="true" (click)="editCourseDetail(coursedetail)"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="backdrop" [ngStyle]="{'display':display}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" *ngIf="showAdd">
+                            Add Course Details
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-header" *ngIf="showEdit">
+                            Edit Course Details
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl">
+                            <form [formGroup]="courseDetailsForm">
+                                <label>Course Name</label>
+                                <select class="form-control custom-select custom-select-sm" formControlName="courseval"
+                                    [(ngModel)]="courseName">
+                                    <option *ngFor="let course of courseData;let x = index" [ngValue]="course.id">{{
+                                        course.courses }}</option>
+                                </select>
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.courseval">
+                                        <div class="error-message" *ngIf="courseDetailsForm.get('courseval').hasError(error.type) && (courseDetailsForm.get('courseval').dirty || courseDetailsForm.get('courseval').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Degree</label>
+                                        <select class="form-control custom-select custom-select-sm" formControlName="degreeTypeVal"
+                                            [(ngModel)]="degreeType">
+                                            <option *ngFor="let degree of degreeDetails;let x = index" [ngValue]="degree.id">{{
+                                                degree.degree }}</option>
+                                        </select>
+                                        <div class="error-messages">
+                                            <div *ngFor="let error of error_messages.degreeTypeVal">
+                                                <div class="error-message" *ngIf="courseDetailsForm.get('degreeTypeVal').hasError(error.type) && (courseDetailsForm.get('degreeTypeVal').dirty || courseDetailsForm.get('degreeTypeVal').touched)">
+                                                    {{ error.message }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Course Type</label>
+                                        <select class="form-control custom-select custom-select-sm" formControlName="courseTypeVal"
+                                            [(ngModel)]="courseType">
+                                            <option *ngFor="let coursetype of courseTypeDetails;let x = index"
+                                                [ngValue]="coursetype.id">{{
+                                                coursetype.type }}</option>
+                                        </select>
+                                        <div class="error-messages">
+                                            <div *ngFor="let error of error_messages.courseTypeVal">
+                                                <div class="error-message" *ngIf="courseDetailsForm.get('courseTypeVal').hasError(error.type) && (courseDetailsForm.get('courseTypeVal').dirty || courseDetailsForm.get('courseTypeVal').touched)">
+                                                    {{ error.message }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="showAdd">
+                                    <label>Scope</label>
+                                    <textarea type="text" class="form-control" formControlName="scopeVal" rows="2"
+                                        [(ngModel)]="scope"></textarea>
+                                    <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.scopeVal">
+                                            <div class="error-message" *ngIf="courseDetailsForm.get('scopeVal').hasError(error.type) && (courseDetailsForm.get('scopeVal').dirty || courseDetailsForm.get('scopeVal').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label>Duration</label>
+                                    <input type="text" class="form-control" formControlName="durationVal" [(ngModel)]="duration">
+                                    <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.durationVal">
+                                            <div class="error-message" *ngIf="courseDetailsForm.get('durationVal').hasError(error.type) && (courseDetailsForm.get('durationVal').dirty || courseDetailsForm.get('durationVal').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label>Eligibility</label>
+                                    <input type="text" class="form-control" formControlName="eligibilityVal"
+                                        [(ngModel)]="eligibility">
+                                    <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.eligibilityVal">
+                                            <div class="error-message" *ngIf="courseDetailsForm.get('eligibilityVal').hasError(error.type) && (courseDetailsForm.get('eligibilityVal').dirty || courseDetailsForm.get('eligibilityVal').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label>Fees Structure</label>
+                                    <p class="minmaxTxt">Minimum - Maximum</p>
+                                    <input type="text" class="form-control" formControlName="miniFeesVal" [(ngModel)]="fees">
+                                    <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.miniFeesVal">
+                                            <div class="error-message" *ngIf="courseDetailsForm.get('miniFeesVal').hasError(error.type) && (courseDetailsForm.get('miniFeesVal').dirty || courseDetailsForm.get('miniFeesVal').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row">
+                                        <div class="col-md-6">
+                                            
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label></label>
+                                            <p class="minmaxTxt">Maximum</p>
+                                            <input type="text" class="form-control" formControlName="maxFeesVal"
+                                                [(ngModel)]="maxFees">
+                                            <div class="error-messages">
+                                                <div *ngFor="let error of error_messages.maxFeesVal">
+                                                    <div class="error-message" *ngIf="courseDetailsForm.get('maxFeesVal').hasError(error.type) && (courseDetailsForm.get('maxFeesVal').dirty || courseDetailsForm.get('maxFeesVal').touched)">
+                                                        {{ error.message }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Salary</label>
+                                            <p class="minmaxTxt">Minimum</p>
+                                            <input type="text" class="form-control" formControlName="miniSalaryVal"
+                                                [(ngModel)]="miniSalary">
+                                            <div class="error-messages">
+                                                <div *ngFor="let error of error_messages.miniSalaryVal">
+                                                    <div class="error-message" *ngIf="courseDetailsForm.get('miniSalaryVal').hasError(error.type) && (courseDetailsForm.get('miniSalaryVal').dirty || courseDetailsForm.get('miniSalaryVal').touched)">
+                                                        {{ error.message }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label></label>
+                                            <p class="minmaxTxt">Maximum</p>
+                                            <input type="text" class="form-control" formControlName="maxSalaryVal"
+                                                [(ngModel)]="maxSalary">
+                                            <div class="error-messages">
+                                                <div *ngFor="let error of error_messages.maxSalaryVal">
+                                                    <div class="error-message" *ngIf="courseDetailsForm.get('maxSalaryVal').hasError(error.type) && (courseDetailsForm.get('maxSalaryVal').dirty || courseDetailsForm.get('maxSalaryVal').touched)">
+                                                        {{ error.message }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label>Top Campus</label>
+                                    <input type="text" class="form-control" formControlName="topCampusVal" [(ngModel)]="topCampus">
+                                    <p class="minmaxTxt">Seperate campuses with commas</p>
+                                    <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.topCampusVal">
+                                            <div class="error-message" *ngIf="courseDetailsForm.get('topCampusVal').hasError(error.type) && (courseDetailsForm.get('topCampusVal').dirty || courseDetailsForm.get('topCampusVal').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="addBtn" *ngIf="showAdd">
+                                    <button class="commonBtn mt-2" (click)="addCourseDetails()"> Add Course Details</button>
+                                </div>
+                                <div class="addBtn" *ngIf="showEdit">
+                                    <button class="commonBtn mt-2" (click)="updateCourseDetails()"> Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="backdrop" [ngStyle]="{'display':displayDelete}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':displayDelete}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl mb-3" style="text-align:center;">
+                            <p>Do you want to delete College ?</p>
+                            <button type="submit" class="btn btn-success" (click)="delete()" style="width: 20%;">Yes</button>
+                            <button type="submit" class="btn btn-danger" (click)="onCloseHandled()" style="width: 20%;margin-left: 0.3em;">No</button><br><br>
+                            <p class="error" *ngIf="showErr">{{ deleteErr }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>

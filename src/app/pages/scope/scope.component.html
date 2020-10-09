@@ -1,0 +1,240 @@
+<div class="page-wrapper chiller-theme toggled" [ngStyle]="commonservice.showTour">
+    <main class="page-content">
+        <div class="bgColor">
+            <div class="container">
+                <div class="row" style="height: 4em;">
+                    <div class="col-md-6">
+                        <p class="appTitle">Scope of the Courses</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="adminName">{{ adminName }} <img width="30px" height="30px" style="margin-left:0.5em;" [src]="adminImage"
+                                class="rounded-circle"></p>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6 searchCol">
+                                    <div class="form-inline">
+                                        <input class="form-control form-control-sm ml-3 w-75" type="text" (change)="onChangeEvent($event)" 
+                                        placeholder="Enter Course/Course Type" aria-label="Search">
+                                        <i class="fa fa-angle-down searchIcon" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary" (click)="reset()">Reset</button>
+                                </div>
+                                <!-- <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary addCourseBtn" (click)="openAdd()"><i
+                                            class="fa fa-plus" aria-hidden="true"></i> Add Scope</button>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tableView">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>S.NO</th>
+                                    <th>Course Type</th>
+                                    <th>Course Name</th>
+                                    <th>Degree</th>
+                                    <th>Course Duration</th>
+                                    <th>Scope of the Course</th>
+                                    <th>Salary</th>
+                                    <th>Top Cambus</th>
+                                    <th>Eligibility</th>
+                                    <!-- <th>Date</th> -->
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let scope of allScope">
+                                    <td>{{ scope.id }}</td>
+                                    <td>{{ scope.course_type }}</td>
+                                    <td>{{ scope.courses }}</td>
+                                    <td>{{ scope.degree }}</td>
+                                    <td>{{ scope.durations }}</td>
+                                    <td style="width: 20%;text-align: justify;">
+                                        <p style="word-wrap: break-word;">{{ scope.scope }}</p>
+                                    </td>
+                                    <td>{{ scope.salary }}</td>
+                                    <td>{{ scope.top_campus }}</td>
+                                    <td>{{ scope.eligibility }}</td>
+                                    <!-- <td>21-09-2020</td> -->
+                                    <td>
+                                        <i class="fa fa-pencil iconEdit" aria-hidden="true" (click)="editScope(scope)"></i>
+                                        <i class="fa fa-trash-o iconEdit" aria-hidden="true" (click)="deleteScope(scope)"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="backdrop" [ngStyle]="{'display':display}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" *ngIf="showAdd">
+                            Add Scope of Course
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-header" *ngIf="showEdit">
+                            Edit Scope of Course
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl">
+                            <form [formGroup]="scopeForm">
+                                <label>Select Course</label>
+                                <select class="form-control" formControlName="courseval" [(ngModel)]="course">
+                                    <option *ngFor="let course of courseDetails;let x = index" [ngValue]="course.id">{{
+                                        course.courses
+                                        }}</option>
+                                </select>
+                                <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.courseval">
+                                            <div class="error-message" *ngIf="scopeForm.get('courseval').hasError(error.type) && (scopeForm.get('courseval').dirty || scopeForm.get('courseval').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <label>Course Duration</label>
+                                <input type="text" class="form-control" formControlName="durationVal" [(ngModel)]="courseDuration">
+                                <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.durationVal">
+                                            <div class="error-message" *ngIf="scopeForm.get('durationVal').hasError(error.type) && (scopeForm.get('durationVal').dirty || scopeForm.get('durationVal').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <label>Scope of Course</label>
+                                <textarea class="form-control" rows="2" formControlName="scopeVal" [(ngModel)]="scopeCourse"></textarea>
+                                <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.scopeVal">
+                                            <div class="error-message" *ngIf="scopeForm.get('scopeVal').hasError(error.type) && (scopeForm.get('scopeVal').dirty || scopeForm.get('scopeVal').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label>Fees Structure</label>
+                                    <p class="minmaxTxt">Minimum - Maximum</p>
+                                    <input type="text" class="form-control" formControlName="miniFeesVal" [(ngModel)]="fees">
+                                    <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.miniFeesVal">
+                                            <div class="error-message" *ngIf="scopeForm.get('miniFeesVal').hasError(error.type) && (scopeForm.get('miniFeesVal').dirty || scopeForm.get('miniFeesVal').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <!-- <div class="row">
+                                <div class="col-md-6">
+                                    
+                                </div>
+                                <div class="col-md-6">
+                                    <label></label>
+                                    <p class="minmaxTxt">Maximum</p>
+                                    <input type="text" class="form-control" formControlName="maxFeesVal" [(ngModel)]="maxFees">
+                                    <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.maxFeesVal">
+                                            <div class="error-message" *ngIf="scopeForm.get('maxFeesVal').hasError(error.type) && (scopeForm.get('maxFeesVal').dirty || scopeForm.get('maxFeesVal').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Salary</label>
+                                        <p class="minmaxTxt">Minimum</p>
+                                        <input type="text" class="form-control" formControlName="miniSalaryVal"
+                                            [(ngModel)]="miniSalary">
+                                        <div class="error-messages">
+                                            <div *ngFor="let error of error_messages.miniSalaryVal">
+                                                <div class="error-message" *ngIf="scopeForm.get('miniSalaryVal').hasError(error.type) && (scopeForm.get('miniSalaryVal').dirty || scopeForm.get('miniSalaryVal').touched)">
+                                                    {{ error.message }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label></label>
+                                        <p class="minmaxTxt">Maximum</p>
+                                        <input type="text" class="form-control" formControlName="maxSalaryVal"
+                                            [(ngModel)]="maxSalary">
+                                        <div class="error-messages">
+                                            <div *ngFor="let error of error_messages.maxSalaryVal">
+                                                <div class="error-message" *ngIf="scopeForm.get('maxSalaryVal').hasError(error.type) && (scopeForm.get('maxSalaryVal').dirty || scopeForm.get('maxSalaryVal').touched)">
+                                                    {{ error.message }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Top Campus</label>
+                                <input type="text" class="form-control" formControlName="topCampusVal" [(ngModel)]="topCampus">
+                                <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.topCampusVal">
+                                            <div class="error-message" *ngIf="scopeForm.get('topCampusVal').hasError(error.type) && (scopeForm.get('topCampusVal').dirty || scopeForm.get('topCampusVal').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <label>Eligibility</label>
+                                <input type="text" class="form-control" formControlName="eligibilityVal" [(ngModel)]="eligibility">
+                                <div class="error-messages">
+                                        <div *ngFor="let error of error_messages.eligibilityVal">
+                                            <div class="error-message" *ngIf="scopeForm.get('eligibilityVal').hasError(error.type) && (scopeForm.get('eligibilityVal').dirty || scopeForm.get('eligibilityVal').touched)">
+                                                {{ error.message }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <div class="addBtn" *ngIf="showAdd">
+                                    <button class="commonBtn mt-2" (click)="addScope()">Add Scope</button>
+                                </div>
+                                <div class="addBtn" *ngIf="showEdit">
+                                    <button class="commonBtn mt-2" [disabled]="!scopeForm.valid" (click)="updateScope()">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="backdrop" [ngStyle]="{'display':displayDelete}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':displayDelete}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl mb-3" style="text-align:center;">
+                            <p>Do you want to delete College ?</p>
+                            <button type="submit" class="btn btn-success" (click)="delete()" style="width: 20%;">Yes</button>
+                            <button type="submit" class="btn btn-danger" (click)="onCloseHandled()" style="width: 20%;margin-left: 0.3em;">No</button><br><br>
+                            <p class="error" *ngIf="showErr">{{ deleteErr }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>

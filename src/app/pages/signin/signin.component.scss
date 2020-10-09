@@ -1,0 +1,434 @@
+.bg {
+    background-image: url("../../../assets/bg.png");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    // padding: 5em !important;
+    text-align: center;
+    overflow: hidden !important;
+
+    .main-block {
+        padding: 8em;
+        padding-top: 4em;
+
+        .container-fluid {
+            background: #fff;
+            border-radius: 10px;
+            padding: 0em;
+
+            .leftLogin {
+                background-image: url("../../../assets/login-left.png");
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                border-radius: 10px 0px 0px 10px;
+                padding-bottom: 3em;
+
+                .logo {
+                    width: 80%;
+                    padding: 7em 8em;
+                }
+
+                .leftTxt {
+                    font-size: 0.8em;
+                    text-align: justify;
+                    padding: 1em 2em;
+                    padding-bottom: 5em;
+                    color: #fff;
+                }
+            }
+
+            .rightLogin {
+                padding-bottom: 3em;
+                padding-top: 3em;
+
+                .form-group {
+                    padding-bottom: 1.2em;
+                }
+
+                .email-icon {
+                    width: 20px;
+                    float: left;
+                    margin-top: 0.4em;
+                    margin-left: 3em;
+                }
+
+                .form-control {
+                    position: absolute;
+                    padding-left: 4em;
+                    background: transparent;
+                    border-radius: 30px;
+                    width: 80%;
+                    margin-left: 2em;
+                    font-size: 0.8em
+                }
+
+                .error-messages {
+                    text-align: left;
+                    padding-left: 2em;
+                }
+
+                h3 {
+                    text-align: left;
+                    font-size: 0.9em;
+                    padding: 2em;
+                }
+
+                p {
+                    text-align: left;
+                    font-size: 0.8em;
+                    padding: 1em 2em;
+                    color: #939393;
+                }
+
+                .btn-submit {
+                    text-align: left;
+                    margin-left: 1.6em;
+                    padding-top: 1.2em;
+
+                    .btn-primary {
+                        width: 89%;
+                        font-size: 0.8em;
+                        border-radius: 30px;
+                        background-color: #6bc772;
+                        border-color: #6bc772;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// .split {
+//     height: 100%;
+//     width: 100%;
+//     position: fixed;
+//     top: 0;
+//     overflow-x: hidden;
+//     // background-image: url(~src/assets/bg.jpg);
+//     background-size: cover;
+//     background-color: white;
+//     background-position: right;
+
+//     h3 {
+//         font-style: italic;
+//     }
+// }
+
+// .centered {
+//     position: absolute;
+//     top: 43%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     text-align: center;
+//     width: 350px;
+//     border: 2px solid #6bc772;
+//     border-radius: 10px;
+
+//     .logo {
+//         font-size: 1.3em;
+//         letter-spacing: 1px;
+//         color: #E3EAE2;
+//         margin-top: -2%;
+//         font-weight: 450;
+//     }
+// }
+
+.form-control-sm {
+    height: calc(2.5em + 0.5rem + 2px);
+}
+
+img {
+    width: 120px;
+}
+
+.p-5 {
+    padding: 3em 1em !important;
+}
+
+.mb-3 {
+    margin-top: 1em;
+}
+
+.btn-sm {
+    padding: 0.60rem 0.5rem;
+}
+
+.submitbtn {
+    background: #6bc772 !important;
+    color: #fff;
+    font-weight: 700;
+}
+
+.col-form-label-sm {
+    color: #6bc772;
+    margin-bottom: 1em;
+}
+
+.error-messages {
+    font-size: 0.7em;
+    color: red;
+    font-weight: 100;
+}
+
+
+
+// MEDIA QUERIES \\
+@media screen and (min-width: 320px) {
+
+    .bg{
+        overflow: auto !important;
+    }
+
+    .logo{
+        width: 100% !important;
+        padding: 5em 6em !important;
+    }
+
+    .main-block {
+        padding: 1em !important;
+        padding-top: 1em !important;
+    }
+
+    .leftLogin {
+        border-radius: 10px 10px 0px 0px !important;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .bg{
+        overflow: hidden !important;
+    }
+
+    .logo{
+        width: 80% !important;
+        padding: 7em 8em !important;
+    }
+
+    .leftLogin {
+        border-radius: 10px 0px 0px 10px !important;
+    }
+
+    .main-block {
+        padding: 8em !important;
+        padding-top: 4em !important;
+    }
+}
+
+
+// form {
+//     font-weight: 500;
+// }
+
+// .forgot {
+//     cursor: pointer;
+// }
+
+// .mainContent {
+//     box-shadow: 0 0 20px #cac6c6;
+//     padding: 2% 2%;
+//     margin-top: 8%;
+//     border-radius: 2%;
+// }
+
+// .signuplink {
+//     font-size: 0.8em;
+// }
+
+// .errorMsg {
+//     text-align: center;
+// }
+
+// @media only screen and (max-width: 768px) {
+//     .w-50 {
+//         width: 95%;
+//     }
+// }
+
+
+
+
+
+
+
+
+// .bg {
+//     background-image: url("../../../assets/bg.png");
+//     height: 100%;
+//     background-position: center;
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//     padding: 5em;
+//     text-align: center;
+//     .login-block{
+//         background-color: #fff;
+//         border-radius: 10px;
+//         margin: 0em 10em;
+
+//         .leftLogin{
+//             background-image: url("../../../assets/login-left.png");
+//             background-position: center;
+//             background-repeat: no-repeat;
+//             background-size: cover;
+//             border-radius: 10px 0px 0px 10px;
+
+//             .logo{
+//                 margin: 5em 5em;
+//                 margin-top: 12em;
+//             }
+
+//             .leftTxt{
+//                 font-size: 0.8em;
+//                 text-align: justify;
+//                 padding: 0em 1em;
+//                 margin-bottom: 8em;
+//                 color: #fff;
+//             }
+//         }
+
+//         .rightLogin{
+//             .email-icon{
+//                 width: 20px;
+//                 float:left;
+//                 margin-top: 0.4em;
+//                 margin-left: 3em;
+//             }
+
+//             .form-control{
+//                 position: absolute;
+//                 padding-left: 4em;
+//                 background: transparent;
+//                 border-radius: 30px;
+//                 width: 75%;
+//                 margin-left: 2em;
+//                 font-size: 0.8em
+//             }
+//             h3{
+//                 text-align: left;
+//                 font-size: 0.9em;
+//                 margin: 6em 1em 3em 1em;
+//             }
+//             p{
+//                 text-align: left;
+//                 font-size: 0.8em;
+//                 margin: 1em;
+//                 margin-bottom: 3em;
+//                 color: #939393;
+//             }
+//             .btn-submit{
+//                 text-align: left;
+//                 margin-left: 1.6em;
+
+//                 .btn-primary{
+//                     width: 86%;
+//                     font-size: 0.8em;
+//                     border-radius: 30px;
+//                     background-color: #6bc772;
+//                     border-color: #6bc772;
+//                 }
+//             }
+//         }
+//     }
+//   }
+
+// .split {
+//     height: 100%;
+//     width: 100%;
+//     position: fixed;
+//     top: 0;
+//     overflow-x: hidden;
+//     // background-image: url(~src/assets/bg.jpg);
+//     background-size: cover;
+//     background-color: white;
+//     background-position: right;
+
+//     h3 {
+//         font-style: italic;
+//     }
+// }
+
+// .centered {
+//     position: absolute;
+//     top: 43%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     text-align: center;
+//     width: 350px;
+//     border: 2px solid #6bc772;
+//     border-radius: 10px;
+
+//     .logo {
+//         font-size: 1.3em;
+//         letter-spacing: 1px;
+//         color: #E3EAE2;
+//         margin-top: -2%;
+//         font-weight: 450;
+//     }
+// }
+
+// .form-control-sm{
+//    height:calc(2.5em + 0.5rem + 2px); 
+// }
+
+// img{
+//     width: 120px;
+// }
+
+// .p-5{
+//     padding: 3em 1em !important;
+// }
+
+// .mb-3{
+//     margin-top: 1em;
+// }
+
+// .btn-sm{
+//     padding: 0.60rem 0.5rem;
+// }
+
+// .submitbtn {
+//     background: #6bc772 !important;
+//     color: #fff;
+//     font-weight: 700;
+// }
+
+// .col-form-label-sm{
+//     color: #6bc772;
+//     margin-bottom: 1em;
+// }
+
+// .error-messages{
+//     font-size: 0.7em;
+//     color: red;
+//     font-weight: 100;
+// }
+
+// // form {
+// //     font-weight: 500;
+// // }
+
+// // .forgot {
+// //     cursor: pointer;
+// // }
+
+// // .mainContent {
+// //     box-shadow: 0 0 20px #cac6c6;
+// //     padding: 2% 2%;
+// //     margin-top: 8%;
+// //     border-radius: 2%;
+// // }
+
+// // .signuplink {
+// //     font-size: 0.8em;
+// // }
+
+// // .errorMsg {
+// //     text-align: center;
+// // }
+
+// // @media only screen and (max-width: 768px) {
+// //     .w-50 {
+// //         width: 95%;
+// //     }
+// // }

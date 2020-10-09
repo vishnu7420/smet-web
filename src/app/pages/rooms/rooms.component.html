@@ -1,0 +1,66 @@
+<div class="container">
+    <p class="appTitle">Rooms</p>
+    <button class="float-right commonBtn" data-toggle="modal" role="dialog" (click)="openAdd()">Add New
+        Room</button><br><br>
+
+    <div class="row my-4">
+        <div class="col">
+            <!-- <div class="jumbotron"> -->
+            <!-- <div class="container-fluid"> -->
+
+            <div class="row">
+                <div class="col-md-3 d-flex" *ngFor="let rooms of allRooms">
+                    <div class="card flex-fill mb-3">
+                        <div class="card-body">
+                            <p class=" mb-0">Floor ID: {{rooms.floor_id}}</p>
+                            <p class=" mb-0">Room NO: {{rooms.room_no}}</p>
+                            <p class="mb-0">Room Type: 
+                                <span *ngIf="rooms.room_type==1">AC</span> <span *ngIf="rooms.room_type==2">Non-AC</span></p>
+                            <p class=" mb-0">Price: {{rooms.room_price}}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+
+            <!-- </div> -->
+        </div>
+    </div>
+
+</div>
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Add New Room
+                <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="dltmodal-content animate modal-body dltBl">
+                <label>Room No</label>
+                <select class="form-control" [(ngModel)]="floor" (change)="changeFloor(floor)">
+                    <option [ngValue]="undefined" disabled selected> Select Floor </option>
+                    <option *ngFor="let floor of allFloors" [ngValue]="floor">
+                        {{floor.floor}}</option>
+                </select><br>
+
+                <label>Room No</label>
+                <input type="text" placeholder="Enter Room No" class="form-control" [(ngModel)]="roomNo"><br>
+
+                <label> Select Room Type</label>
+                <select class="form-control" [(ngModel)]="roomType" (change)="changeType(roomType)"  >
+                    <!---->
+                    <option [ngValue]="undefined" disabled selected> Select Floor </option>
+                    <option *ngFor="let roomType of [{roomType:'AC',type:1},{roomType:'Non-AC',type:2}]"
+                        [ngValue]="roomType">
+                        {{roomType.roomType}}</option>
+                </select><br>
+                <label>Price</label>
+                <input type="text" class="form-control" placeholder="Enter Room Price" [(ngModel)]="price">
+                <button class="commonBtn mt-2" (click)="addRoom()"> Add Room</button>
+            </div>
+        </div>
+    </div>
+</div>

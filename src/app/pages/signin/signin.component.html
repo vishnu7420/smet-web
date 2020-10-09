@@ -1,0 +1,299 @@
+<div class="bg">
+    <div class="main-block">
+    <div class="row my-4">
+        <div class="col">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="leftLogin">
+                            <img src="../../../assets/web-logo.png" class="img-fluid logo" alt="Responsive image">
+                            <p class="leftTxt">Lorem Ipsum is simply dummy text of the printing and typesetting
+                                industry.
+                                Lorem
+                                Ipsum has been the
+                                industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                                galley
+                                of type
+                                and scrambled it to make a type specimen book.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="rightLogin">
+                            <h3>Senthur Murugan Student College Admission Point</h3>
+                            <p *ngIf="showLogin">Login to manage colleges, courses and students.</p>
+
+                            <form *ngIf="showLogin" [formGroup]="loginForm">
+                                <div class="form-group">
+                                    <span class="input-group-addon"> <img src="../../../assets/email.png" class="email-icon"></span>
+                                    <input type="email" [(ngModel)]="email" formControlName="emailid" class="form-control"
+                                        placeholder="Enter email" [ngModelOptions]="{standalone: true}">
+                                </div>
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.emailid">
+                                        <div class="error-message" *ngIf="loginForm.get('emailid').hasError(error.type) && (loginForm.get('emailid').dirty || loginForm.get('emailid').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <br>
+                                    <span class="input-group-addon"> <img src="../../../assets/padlock.png" class="email-icon"></span>
+                                    <input type="password" [(ngModel)]="paswdValue" formControlName="paswd" class="form-control"
+                                        placeholder="Password" [ngModelOptions]="{standalone: true}">
+                                </div>
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.paswd">
+                                        <div class="error-message" *ngIf="loginForm.get('paswd').hasError(error.type) && (loginForm.get('paswd').dirty || loginForm.get('paswd').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="btn-submit">
+                                    <button type="submit" (click)="signin()" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
+                                </div>
+                            </form>
+
+                            <p *ngIf="showLogin" (click)="forgotPassword()" style="text-align:center;">Forgot Password
+                            </p>
+
+                            <p *ngIf="showEmailverify">Verify Email Address</p>
+                            <form *ngIf="showEmailverify" [formGroup]="emailVerifyForm">
+                                <div class="form-group">
+                                    <span class="input-group-addon"> <img src="../../../assets/email.png" class="email-icon"></span>
+                                    <input type="email" [(ngModel)]="email" formControlName="verifyEmail" class="form-control"
+                                        placeholder="Enter email" [ngModelOptions]="{standalone: true}">
+                                </div>
+                               
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.emailid">
+                                        <div class="error-message" *ngIf="emailVerifyForm.get('verifyEmail').hasError(error.type) && (emailVerifyForm.get('verifyEmail').dirty || emailVerifyForm.get('verifyEmail').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="btn-submit">
+                                    <button type="submit" (click)="verify()" [disabled]="!emailVerifyForm.valid" class="btn btn-primary">Verify</button>
+                                </div>
+                            </form>
+                            <p *ngIf="showEmailverify" (click)="backToLogin()" style="text-align:center;">Back to Login</p>
+
+                            <p *ngIf="showOTPverify">Verify OTP</p>
+                            <form *ngIf="showOTPverify" [formGroup]="otpVerifyForm">
+                                <div class="form-group">
+                                    <span class="input-group-addon"> <img src="../../../assets/email.png" class="email-icon"></span>
+                                    <input [(ngModel)]="otp" formControlName="verifyOtp" class="form-control"
+                                        placeholder="Enter OTP" [ngModelOptions]="{standalone: true}">
+                                </div>
+                               
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.verifyotp">
+                                        <div class="error-message" *ngIf="otpVerifyForm.get('verifyOtp').hasError(error.type) && (otpVerifyForm.get('verifyOtp').dirty || otpVerifyForm.get('verifyOtp').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-submit">
+                                    <button type="submit" (click)="verifyOTP()" [disabled]="!otpVerifyForm.valid" class="btn btn-primary">Verify</button>
+                                </div>
+                            </form>
+                            <p *ngIf="showOTPverify" (click)="resend()" style="text-align:center;">Resend</p>
+                            <p *ngIf="showOTPverify" (click)="backToLogin()" style="text-align:center;">Back to Login</p>
+
+                            <p *ngIf="showforgotPass">Change Password</p>
+                            <form *ngIf="showforgotPass" [formGroup]="changePassForm">
+                                <div class="form-group">
+                                    <span class="input-group-addon"> <img src="../../../assets/padlock.png" class="email-icon"></span>
+                                    <input type="password" formControlName="paswd" class="form-control" placeholder="Enter Password"
+                                        [ngModelOptions]="{standalone: true}">
+                                </div>
+                                <div class="error-messages" style="padding-bottom:1em;">
+                                    <div *ngFor="let error of error_messages.password">
+                                        <div class="error-message" *ngIf="changePassForm.get('paswd').hasError(error.type) && (changePassForm.get('paswd').dirty || changePassForm.get('paswd').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <span class="input-group-addon"> <img src="../../../assets/padlock.png" class="email-icon"></span>
+                                    <input type="password" formControlName="confirmPass" class="form-control"
+                                        placeholder="Enter Confirm Password" [ngModelOptions]="{standalone: true}">
+                                </div>
+                                <div class="error-messages" style="padding-bottom:1em;">
+                                    <div *ngFor="let error of error_messages.password">
+                                        <div class="error-message" *ngIf="changePassForm.get('confirmPass').hasError(error.type) && (changePassForm.get('confirmPass').dirty || changePassForm.get('confirmPass').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p *ngIf="showErr" class="error-messages" style="color:red;font-size: 0.7em;">Password and
+                                    Confirm
+                                    Passwords should be the same.</p>
+
+                                <div class="btn-submit">
+                                    <button type="submit" (click)="changePassword()" [disabled]="!changePassForm.valid"
+                                        class="btn btn-primary">Change Password</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <div class="bg">
+    <div class="login-block">
+        <div class="row">
+            <div class="col-6 leftLogin">
+                <img src="../../../assets/web-logo.png" class="img-fluid logo" alt="Responsive image">
+                <p class="leftTxt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                    Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book.</p>
+            </div>
+            <div class="col-6 rightLogin">
+                <h3>Senthur Murugan Student College Admission Point</h3>
+                <p *ngIf="showLogin">Login to manage colleges, courses and students.</p>
+
+                <form *ngIf="showLogin" [formGroup]="loginForm">
+                    <div class="form-group">
+                        <span class="input-group-addon"> <img src="../../../assets/email.png" class="email-icon"></span>
+                        <input type="email" [(ngModel)]="email" formControlName="emailid" class="form-control"
+                            placeholder="Enter email" [ngModelOptions]="{standalone: true}">
+                    </div><br><br>
+                    <div class="error-messages">
+                        <div *ngFor="let error of error_messages.emailid">
+                            <div class="error-message" *ngIf="loginForm.get('emailid').hasError(error.type) && (loginForm.get('emailid').dirty || loginForm.get('emailid').touched)">
+                                {{ error.message }}
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <br>
+                        <span class="input-group-addon"> <img src="../../../assets/padlock.png" class="email-icon"></span>
+                        <input type="password" [(ngModel)]="paswdValue" formControlName="paswd" class="form-control"
+                            placeholder="Password" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="error-messages">
+                        <div *ngFor="let error of error_messages.paswd">
+                            <div class="error-message" *ngIf="loginForm.get('paswd').hasError(error.type) && (loginForm.get('paswd').dirty || loginForm.get('paswd').touched)">
+                                {{ error.message }}
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="btn-submit">
+                        <button type="submit" (click)="signin()" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
+                    </div>
+                </form>
+
+                <p *ngIf="showLogin" (click)="forgotPassword()" style="text-align:center;">Forgot Password </p>
+
+                <p *ngIf="showEmailverify">Verify Email Address</p>
+                <form *ngIf="showEmailverify" [formGroup]="emailVerifyForm">
+                    <div class="form-group">
+                        <span class="input-group-addon"> <img src="../../../assets/email.png" class="email-icon"></span>
+                        <input type="email" [(ngModel)]="email" formControlName="verifyEmail" class="form-control"
+                            placeholder="Enter email" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <br>
+                    <br>
+                    <div class="error-messages">
+                        <div *ngFor="let error of error_messages.emailid">
+                            <div class="error-message" *ngIf="emailVerifyForm.get('verifyEmail').hasError(error.type) && (emailVerifyForm.get('verifyEmail').dirty || emailVerifyForm.get('verifyEmail').touched)">
+                                {{ error.message }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn-submit">
+                        <button type="submit" (click)="verify()" [disabled]="!emailVerifyForm.valid" class="btn btn-primary">Verify</button>
+                    </div>
+                </form>
+                <p *ngIf="showEmailverify" (click)="backToLogin()" style="text-align:center;">Back to Login</p>
+
+                <p *ngIf="showOTPverify">Verify OTP</p>
+                <form *ngIf="showOTPverify" [formGroup]="otpVerifyForm">
+                    <div class="form-group">
+                        <span class="input-group-addon"> <img src="../../../assets/email.png" class="email-icon"></span>
+                        <input [(ngModel)]="otp" formControlName="verifyOtp" class="form-control" placeholder="Enter OTP"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <br>
+                    <br>
+                    <div class="error-messages">
+                        <div *ngFor="let error of error_messages.verifyotp">
+                            <div class="error-message" *ngIf="otpVerifyForm.get('verifyOtp').hasError(error.type) && (otpVerifyForm.get('verifyOtp').dirty || otpVerifyForm.get('verifyOtp').touched)">
+                                {{ error.message }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-submit">
+                        <button type="submit" (click)="verifyOTP()" [disabled]="!otpVerifyForm.valid" class="btn btn-primary">Verify</button>
+                    </div>
+                </form>
+                <p *ngIf="showOTPverify" (click)="resend()" style="text-align:center;">Resend</p>
+                <p *ngIf="showOTPverify" (click)="backToLogin()" style="text-align:center;">Back to Login</p>
+
+                <p *ngIf="showforgotPass">Change Password</p>
+                <form *ngIf="showforgotPass" [formGroup]="changePassForm">
+                    <div class="form-group">
+                        <span class="input-group-addon"> <img src="../../../assets/padlock.png" class="email-icon"></span>
+                        <input type="password" formControlName="paswd" class="form-control" placeholder="Enter Password"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="error-messages">
+                        <div *ngFor="let error of error_messages.password">
+                            <div class="error-message" *ngIf="changePassForm.get('paswd').hasError(error.type) && (changePassForm.get('paswd').dirty || changePassForm.get('paswd').touched)">
+                                {{ error.message }}
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+
+                    <div class="form-group">
+                        <span class="input-group-addon"> <img src="../../../assets/padlock.png" class="email-icon"></span>
+                        <input type="password" formControlName="confirmPass" class="form-control" placeholder="Enter Confirm Password"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="error-messages">
+                        <div *ngFor="let error of error_messages.password">
+                            <div class="error-message" *ngIf="changePassForm.get('confirmPass').hasError(error.type) && (changePassForm.get('confirmPass').dirty || changePassForm.get('confirmPass').touched)">
+                                {{ error.message }}
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <p *ngIf="showErr" style="color:red;font-size: 0.7em; text-align: center;">Password and Confirm
+                        Passwords should be the same.</p>
+
+                    <br>
+                    <div class="btn-submit">
+                        <button type="submit" (click)="changePassword()" [disabled]="!changePassForm.valid" class="btn btn-primary">Change
+                            Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->

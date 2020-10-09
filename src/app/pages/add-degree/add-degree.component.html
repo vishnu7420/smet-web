@@ -1,0 +1,123 @@
+<div class="page-wrapper chiller-theme toggled" [ngStyle]="commonservice.showTour">
+    <main class="page-content">
+        <div class="bgColor">
+            <div class="container">
+                <div class="row" style="height: 4em;">
+                    <div class="col-md-6">
+                        <p class="appTitle">Degree</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="adminName">{{ adminName }} <img width="30px" height="30px" style="margin-left:0.5em;" [src]="adminImage"
+                                class="rounded-circle"></p>
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div class="col">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3 searchCol">
+                                    <div class="form-inline">
+                                        <input class="form-control form-control-sm ml-3 w-75" type="text" (change)="onChangeEvent($event)" placeholder="Degree"
+                                            aria-label="Search">
+                                        <i class="fa fa-angle-down searchIcon" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary" (click)="reset()">Reset</button>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary addCourseBtn" (click)="openAdd()"><i
+                                            class="fa fa-plus" aria-hidden="true"></i> Add Degree</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 degreeContent" *ngFor="let degree of allDegree">
+                        <p style="text-align:left;">{{ degree.degree }} 
+                            <i class="fa fa-trash-o iconEdit" aria-hidden="true" (click)="deleteDegree(degree)"></i>
+                            <i class="fa fa-pencil iconEdit" (click)="editDegree(degree)"
+                                aria-hidden="true"></i></p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="backdrop" [ngStyle]="{'display':display}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" *ngIf="showAdd">
+                            Add Degree
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-header" *ngIf="showEdit">
+                            Edit Degree
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl">
+                            <form [formGroup]="degreeForm">
+                                <label>Degree</label>
+                                <input type="text" class="form-control" formControlName="degreeName" [(ngModel)]="degree">
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.degreeName">
+                                        <div class="error-message" *ngIf="degreeForm.get('degreeName').hasError(error.type) && (degreeForm.get('degreeName').dirty || degreeForm.get('degreeName').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label>Map degree type to degree</label>
+                                <select class="form-control" formControlName="degreetypeVal" [(ngModel)]="degreeType">
+                                    <option *ngFor="let degreetype of degreeTypeData;let x = index" [ngValue]="degreetype.id">{{
+                                            degreetype.type }}</option>
+                                </select>
+                                <div class="error-messages">
+                                    <div *ngFor="let error of error_messages.degreetypeVal">
+                                        <div class="error-message" *ngIf="degreeForm.get('degreetypeVal').hasError(error.type) && (degreeForm.get('degreetypeVal').dirty || degreeForm.get('degreetypeVal').touched)">
+                                            {{ error.message }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="addBtn" *ngIf="showAdd">
+                                    <button class="commonBtn mt-2" [disabled]="!degreeForm.valid" (click)="addDegree()">
+                                        Add Degree</button>
+                                </div>
+                                <div class="addBtn" *ngIf="showEdit">
+                                    <button class="commonBtn mt-2" (click)="updateDegree()" [disabled]="!degreeForm.valid">
+                                        Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="backdrop" [ngStyle]="{'display':displayDelete}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':displayDelete}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl mb-3" style="text-align:center;">
+                            <p>Do you want to delete Degree ?</p>
+                            <button type="submit" class="btn btn-success" (click)="delete()" style="width: 20%;">Yes</button>
+                            <button type="submit" class="btn btn-danger" (click)="onCloseHandled()" style="width: 20%;margin-left: 0.3em;">No</button><br><br>
+                            <p class="error" *ngIf="showErr">{{ deleteErr }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>

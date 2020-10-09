@@ -1,0 +1,87 @@
+.bgColor{
+    background-color: #fbfbfb !important;
+    height: 100%;
+}
+
+.container{
+    margin-top: 0px;
+}   
+.appTitle{
+    padding-top: 1em;
+    margin-bottom: 1em;
+    text-decoration: none;
+    color: #939393;
+}
+
+.form-control{
+    margin-bottom: 0.5em;
+    font-size: 0.8em;
+    height: calc(1.3em + 0.70rem + 2px);
+}
+
+.commonBtn{
+    padding: 0.5em 1em;
+    background-color: #6bc772 !important;
+    border-radius: 30px;
+    font-size: 0.9em;
+}
+
+.imgLabel{
+    background: #6bc772;
+    color: #fff;
+    width: 30px;
+    padding: 0.4em 0.5em;
+    position: absolute;
+    top: 10em;
+    right: 42em;
+    font-size: 0.8em !important;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: #ccc;
+    cursor: inherit;
+    display: block;
+}
+
+.inputFields{
+    padding: 1em;
+    width: 35%;
+    border: 1px solid #6bc772;
+    border-radius: 10px;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.btn-primary{
+    width: 100%;
+    background: #6bc772;
+    border-color: #6bc772;
+}
+
+.btn-default{
+    width: 100%;
+    background: #6bc772;
+    color: #fff;
+}
+
+label{
+    font-size: 0.8em;
+}
+
+.form-group{
+    margin-bottom: 0.5em;
+}

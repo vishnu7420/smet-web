@@ -1,0 +1,183 @@
+<div class="page-wrapper chiller-theme toggled" #el>
+    <div (click)="toggleNav()" class="btn btn-sm btn-dark show-sidebar hamburger">
+        <i class="fa fa-bars"></i>
+    </div>
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <img class="appLogo img-fluid float-left" src="../../../../assets/web-logo.png">
+                <div class="close-sidebar hamburger" (click)="closeNav()">
+                    <i class="fa fa-times"></i>
+                </div>
+            </div>
+
+            <div class="sidebar-menu" style="color:#fff;">
+                <ul>
+                    <li (click)="dashboard()">
+                        <span class="input-group-addon"> <img src="../../../assets/side-menu/dashboard2.png" class="email-icon"></span>Dashboard
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <span class="input-group-addon"> <img src="../../../assets/side-menu/college2.png" class="email-icon"></span><span
+                            (click)="college()">Colleges</span>
+                        <i class="fa fa-angle-down" aria-hidden="true" style="float: right;position: relative;top: 0.3em;"></i>
+                        <div [@toggleBox]="isCollegeOpen ? 'open' : 'closed'">
+
+                            <ul *ngIf="isCollegeOpen" class="submenu">
+                                <li class="courseSub" (click)=addcoursecollege()>
+                                    <span class="input-group-addon"> <img src="../../../assets/side-menu/degree-details2.png"
+                                            class="email-icon"></span>Add Courses for Colleges
+
+                                </li>
+                                <li class="courseSub" (click)="addVideos()">
+                                    <span class="input-group-addon"> <img src="../../../assets/side-menu/course-type2.png"
+                                            class="email-icon"></span>Add Videos
+
+                                </li>
+                                <li class="courseSub" (click)="addClgImages()">
+                                    <span class="input-group-addon"> <img src="../../../assets/side-menu/degree2.png"
+                                            class="email-icon"></span>Add Images
+                                </li>
+                            </ul>
+
+                        </div>
+                    </li>
+                    <li (click)="courses()">
+                        <span class="input-group-addon"> <img src="../../../../assets/side-menu/course2.png" class="email-icon"></span>Add
+                        Course
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <span class="input-group-addon"> <img src="../../../assets/side-menu/college-details2.png"
+                                class="email-icon"></span><span (click)="courseDetails()">Course Details</span>
+                        <i class="fa fa-angle-down" aria-hidden="true" style="float: right;position: relative;top: 0.3em;"></i>
+                        <div [@toggleBox]="isOpen ? 'open' : 'closed'">
+                            <ul *ngIf="isOpen" class="submenu">
+                                <li class="courseSub" (click)=degreeType()>
+                                    <span class="input-group-addon"> <img src="../../../assets/side-menu/degree-details2.png"
+                                            class="email-icon"></span>Degree
+                                    Type
+                                </li>
+                                <li class="courseSub" (click)="courseType()">
+                                    <span class="input-group-addon"> <img src="../../../assets/side-menu/course-type2.png"
+                                            class="email-icon"></span>Course
+                                    Type
+                                </li>
+                                <li class="courseSub" (click)="degree()">
+                                    <span class="input-group-addon"> <img src="../../../assets/side-menu/degree2.png"
+                                            class="email-icon"></span>Degree
+                                </li>
+                                <li class="courseSub" (click)="addcourseDetails()">
+                                    <span class="input-group-addon"> <img src="../../../assets/side-menu/course2.png"
+                                            class="email-icon"></span>Course
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li (click)="scope()">
+                        <span class="input-group-addon"> <img src="../../../../assets/side-menu/Scope2.png"
+                                class="email-icon"></span>Scope
+                    </li>
+
+                    <li (click)="addCountry()">
+                        <span class="input-group-addon"> <img src="../../../../assets/side-menu/Trending-Courses2.png"
+                                class="email-icon"></span>Add Country
+                    </li>
+                    <li (click)="adImages()">
+                        <span class="input-group-addon"> <img src="../../../../assets/side-menu/Trending-Courses2.png"
+                                class="email-icon"></span>Ad Images
+                    </li>
+                    <li (click)="userRole()">
+                        <span class="input-group-addon"> <img src="../../../../assets/side-menu/users-roles2.png" class="email-icon"></span>User
+                        Roles
+                    </li>
+                    <li (click)="adminUpdate()">
+                        <span class="input-group-addon"> <img src="../../../assets/side-menu/Profile2.png" class="email-icon"></span>Account
+                    </li>
+                    <li (click)="signout()">
+                        <span class="input-group-addon"> <img src="../../../assets/side-menu/logout2.png" class="email-icon"></span>Logout
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="backdrop" [ngStyle]="{'display':display}"></div>
+    <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="dltmodal-content animate modal-body dltBl mb-3" style="text-align:center;">
+                    <p>Confirmation</p>
+                    <button type="submit" class="btn btn-success" (click)="ok()" style="width: 20%;">Yes</button>
+                    <button type="submit" class="btn btn-danger" (click)="onCloseHandled()" style="width: 20%;margin-left: 0.3em;">Cancel</button><br><br>
+                    <p class="error" *ngIf="showError">{{ErrorMsg}}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- <nav id="sidebar" class="navbar-light" [ngClass]="{'hidden': sideNavService.hideSideNav }" [ngStyle]="commonservice.showTour">
+
+    <div class="topNav" style="margin-top:4em;">
+        <button class="btn btn-link btn-block" (click)="dashboard()" type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/dashboard2.png" class="email-icon"></span>Dashboard
+        </button>
+        <button class="btn btn-link btn-block clearfix" (click)="college()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/college2.png" class="email-icon"></span>Colleges
+        </button>
+        <button class="btn btn-link btn-block clearfix" (click)="collegeDetails()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/college-details2.png" class="email-icon"></span>College
+            Details
+        </button>
+        <button class="btn btn-link btn-block clearfix" (click)="addVideos()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/college-details2.png" class="email-icon"></span>College
+            Videos
+        </button>
+        <button class="btn btn-link btn-block clearfix" (click)="addClgImages()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/college-details2.png" class="email-icon"></span>College
+            Images
+        </button>
+        <button class="btn btn-link btn-block clearfix" (click)="degree()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/degree2.png" class="email-icon"></span>Degree
+        </button>
+        <button class="btn btn-link btn-block clearfix" (click)="degreeType()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/degree-details2.png" class="email-icon"></span>Degree
+            Type
+        </button>
+        <button class="btn btn-link btn-block clearfix" (click)="courses()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/course2.png" class="email-icon"></span>Courses
+        </button>
+        <button class="btn btn-link btn-block clearfix" (click)="courseType()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/course-type2.png" class="email-icon"></span>Course
+            Type
+        </button>
+        <button class="btn btn-link btn-block clearfix" (click)="courseDetails()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/course-details2.png" class="email-icon"></span>Course
+            Details
+        </button>
+        <button class="btn btn-link btn-block clearfix" (click)="scope()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/Scope2.png" class="email-icon"></span>Scope
+        </button>
+       
+        <button class="btn btn-link btn-block clearfix" (click)="adImages()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/foreign-university.png" class="email-icon"></span>Ad
+            Images
+        </button>
+        <button class="btn btn-link btn-block clearfix" (click)="userRole()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/users-roles2.png" class="email-icon"></span>User
+            Roles
+        </button>
+        <button class="btn btn-link btn-block clearfix" (click)="adminUpdate()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/Profile2.png" class="email-icon"></span>Profile
+        </button>
+        <button class="btn btn-link btn-block clearfix" (click)="signout()" accordion-heading type="button">
+            <span class="input-group-addon"> <img src="../../../../assets/side-menu/logout2.png" class="email-icon"></span>Logout
+        </button>
+    </div>
+</nav>
+</div> -->

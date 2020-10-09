@@ -1,0 +1,72 @@
+.bg-light{
+    background: #000 !important;
+}
+.bg {
+    /* The image used */
+    background-image: url(~src/assets/home-bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+    height: calc(100vh - 250px);
+}
+
+.navbar-collapse{
+    ul{
+        margin-left: 1em;
+        .nav-item{
+            a{
+                color:#fff;
+            }
+            // a:hover{
+            //     color:#fff;
+            //     border: 1px solid #243a8e
+            // }
+        }
+    }
+}
+
+.navbar-light .navbar-nav .active > .nav-link{
+    color: #fff;
+    background:#6bc772;
+}
+
+.text-warning{
+    color: #6bc772 !important;
+}
+
+.foo {
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #6bc772;
+    color: white;
+    /* position: fixed;
+      bottom: 0; */
+    width: 100%;
+    margin-top: 5%;
+}
+
+.row {
+    padding: 1%;
+}
+
+p {
+    color: #0c31c3;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+span {
+    font-size: 0.8em;
+}
+
+.links {
+    background: black;
+}
+
+i {
+    cursor: pointer;
+    color: #6bc772;
+}

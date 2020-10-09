@@ -1,0 +1,56 @@
+<div class="page-wrapper chiller-theme toggled" [ngStyle]="commonservice.showTour">
+    <main class="page-content">
+        <div class="bgColor">
+            <div class="container">
+                <p class="appTitle">Update Admin</p>
+
+                <div class="inputFields">
+                    <form>
+                        <div style="text-align:center;">
+                            <img width="80px" height="80px" *ngIf="imageUrl" [src]="imageUrl" class="rounded-circle">
+                            <label class="rounded-circle imgLabel">
+                                <i class="fa fa-camera" aria-hidden="true"></i><input type="file" (change)="handleFileInput($event.target.files)"
+                                    hidden>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select User</label>
+                            <select class="form-control" [(ngModel)]="userRole" [ngModelOptions]="{standalone: true}">
+                                <option *ngFor="let users of userRoleData;let x = index" [ngValue]="users.id">{{
+                                    users.roles }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input class="form-control" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input class="form-control" [(ngModel)]="phonenumber" [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <div class="form-group">
+                            <label>Email ID</label>
+                            <input class="form-control" [(ngModel)]="emailId" [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input class="form-control" [(ngModel)]="dob" type="date" [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input class="form-control" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <!-- <label class="btn btn-default btn-file">
+                    Upload Image <i class="fa fa-camera" aria-hidden="true"></i><input type="file" (change)="handleFileInput($event.target.files)"
+                        hidden>
+                </label>
+                <img width="80px" *ngIf="imageUrl" [src]="imageUrl" class="image"> -->
+
+                        <button type="submit" class="btn btn-primary commonBtn" (click)="updateAdmin()">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

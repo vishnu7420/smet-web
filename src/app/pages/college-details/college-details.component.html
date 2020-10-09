@@ -1,0 +1,126 @@
+<div class="bgColor">
+    <div class="container">
+        <div class="row" style="height: 4em;">
+            <div class="col-md-6">
+                <p class="appTitle">Colleges Details</p>
+            </div>
+            <div class="col-md-6">
+                <p class="adminName">{{ adminName }} <img width="30px" height="30px" style="margin-left:0.5em;" [src]="adminImage"
+                        class="rounded-circle"></p>
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3 searchCol">
+                            <div class="form-inline">
+                                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="College Name"
+                                    aria-label="Search">
+                                <i class="fa fa-angle-down searchIcon" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-3 searchCol">
+                            <div class="form-inline">
+                                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Courses"
+                                    aria-label="Search">
+                                <i class="fa fa-angle-down searchIcon" aria-hidden="true"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 searchCol">
+                            <button type="button" class="btn btn-primary">Search</button>
+                        </div>
+                        <div class="col-md-3 searchCol">
+                            <button type="button" class="btn btn-primary addCourseBtn" (click)="openAdd()"><i class="fa fa-plus"
+                                    aria-hidden="true"></i> Add College Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tableView">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>S.NO</th>
+                            <th>College Name</th>
+                            <th>Course</th>
+                            <th>Fees</th>
+                            <th>Scope</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let collegeData of collegeDetails">
+                            <td>{{ collegeData.id }}</td>
+                            <td>{{ collegeData.collage_name }}</td>
+                            <td>{{ collegeData.courses }}</td>
+                            <td>{{ collegeData.fees }}</td>
+                            <td>{{ collegeData.scope_details }}</td>
+                            <td>23-09-2020</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="backdrop" [ngStyle]="{'display':display}"></div>
+    <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Add College Details
+                    <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                        <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="dltmodal-content animate modal-body dltBl">
+                    <form [formGroup]="collegeDetailsForm">
+                        <label>Select College</label>
+                        <select class="form-control" formControlName="collegeName" [(ngModel)]="collegeId">
+                            <option *ngFor="let college of colleges;let x = index" [ngValue]="college.id">{{
+                                college.collage_name }}</option>
+                        </select>
+                        <div class="error-messages">
+                            <div *ngFor="let error of error_messages.collegeName">
+                                <div class="error-message" *ngIf="collegeDetailsForm.get('collegeName').hasError(error.type) && (collegeDetailsForm.get('collegeName').dirty || collegeDetailsForm.get('collegeName').touched)">
+                                    {{ error.message }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Scope</label>
+                        <select class="form-control" formControlName="scopeName" [(ngModel)]="scopeId">
+                            <option *ngFor="let scopes of scope;let x = index" [ngValue]="scopes.id">{{ scopes.scope }}</option>
+                        </select>
+                        <div class="error-messages">
+                            <div *ngFor="let error of error_messages.scopeName">
+                                <div class="error-message" *ngIf="collegeDetailsForm.get('scopeName').hasError(error.type) && (collegeDetailsForm.get('scopeName').dirty || collegeDetailsForm.get('scopeName').touched)">
+                                    {{ error.message }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Fees</label>
+                        <input type="text" class="form-control" formControlName="feesVal" [(ngModel)]="fees">
+                        <div class="error-messages">
+                            <div *ngFor="let error of error_messages.feesVal">
+                                <div class="error-message" *ngIf="collegeDetailsForm.get('feesVal').hasError(error.type) && (collegeDetailsForm.get('feesVal').dirty || collegeDetailsForm.get('feesVal').touched)">
+                                    {{ error.message }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="addBtn">
+                            <button class="commonBtn mt-2" [disabled]="!collegeDetailsForm.valid" (click)="addCollegeDetails()">Add College Details</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

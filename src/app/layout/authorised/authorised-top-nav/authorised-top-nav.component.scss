@@ -1,0 +1,92 @@
+.navbar {
+  // box-shadow: 0 4px 6px -6px #222;
+  background: transparent;
+  box-shadow: 0 0 0;
+  color:#fff;
+  width: 18%;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+}
+
+.profile {
+  outline: none;
+
+  .fa {
+    margin-right: 10px;
+  }
+
+  span {
+    font-size: 1em;
+    font-weight: 500;
+    color: #129c12;
+    margin-right: 10px;
+
+  }
+}
+
+.icon-wrapper {
+  position: absolute;
+  // float: left;
+  cursor: pointer;
+  outline: none;
+  margin-left: calc(100vh - 114vh);
+
+  i {
+    width: 100px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+  }
+
+  .badge {
+    font-size: smaller;
+    background: #ec3b54;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    border-radius: 50%;
+    position: absolute;
+    top: -3px;
+    right: 37px;
+    padding: 3px;
+    color: white;
+  }
+}
+
+@media (max-width: 500px) {
+  .profile {
+    span {
+      display: inline-block;
+      width: calc(100vh - 90vh);
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+      vertical-align: text-bottom;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .navbar {
+    background: #6bc772;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .navbar {
+    background: #6bc772;
+    width: 100%;
+
+    .navInside{
+      width: 100%;
+    }
+  }
+}

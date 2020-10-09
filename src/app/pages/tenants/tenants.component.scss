@@ -1,0 +1,118 @@
+
+.table-area {
+    overflow: auto;
+    background: rgb(212, 210, 210);
+    padding: 4px 4px 0px 4px;
+    // box-shadow: 0px 0px 10px #bfbaba;
+    // border-radius: 6px;
+}
+
+.table-area table {
+    width: auto;
+    margin: 0 auto;
+}
+
+.table-area thead {
+    width: 100%;
+    display: block;
+    overflow: auto;
+    background: transparent;
+}
+
+tr {
+    font-size: 12px;
+    text-align: left;
+}
+
+hr {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+}
+
+.table-area tbody {
+    display: block;
+    overflow: auto;
+    height: calc(100vh - 175px);
+    width: 100%;
+}
+
+.table-area thead tr {
+    display: block;
+}
+
+.table-area thead th {
+    color: #696565;
+    font-size: 1em;
+}
+
+th,
+td {
+    width: 200px !important;
+    vertical-align: middle !important;
+}
+
+
+.avatar-upload {
+    position: relative;
+    max-width: 170px;
+    margin: 5px auto;
+
+    .avatar-edit {
+        position: absolute;
+        left: 70px;
+        z-index: 1;
+
+        input {
+            display: none;
+
+            +label {
+                display: inline-block;
+                width: 34px;
+                height: 34px;
+                margin-bottom: 0;
+                border-radius: 100%;
+                background: #FFFFFF;
+                border: 1px solid transparent;
+                box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+                cursor: pointer;
+                font-weight: normal;
+                transition: all .2s ease-in-out;
+
+                &:hover {
+                    background: #f1f1f1;
+                    border-color: #d6d6d6;
+                }
+
+                &:after {
+                    content: "\f03e";
+                    font-family: 'FontAwesome';
+                    color: #757575;
+                    position: absolute;
+                    top: 5px;
+                    left: 0;
+                    right: 0;
+                    // text-align: center;
+                    margin: 0 10px;
+                }
+            }
+        }
+    }
+
+    .avatar-preview {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        border-radius: 100%;
+        border: 6px solid #F8F8F8;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+
+        >img {
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+}

@@ -1,0 +1,101 @@
+<div class="page-wrapper chiller-theme toggled" [ngStyle]="commonservice.showTour">
+    <main class="page-content">
+        <div class="bgColor">
+            <div class="container">
+                <div class="row" style="height: 4em;">
+                    <div class="col-md-6">
+                        <p class="appTitle">User Role</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="adminName">{{ adminName }} <img width="30px" height="30px" [src]="adminImage"
+                                class="rounded-circle"></p>
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div class="col">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <!-- <div class="col-md-3 searchCol">
+                                    <div class="form-inline">
+                                        <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="User Name"
+                                            aria-label="Search">
+                                        <i class="fa fa-angle-down searchIcon" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 searchCol">
+                                    <button type="button" class="btn btn-primary">Search</button>
+                                </div> -->
+                                <div class="col-md-12 searchCol" style="text-align: right;">
+                                    <button type="button" class="btn btn-primary addCourseBtn" (click)="openAdd()"><i
+                                            class="fa fa-plus" aria-hidden="true"></i> Add User Role</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 degreeContent" *ngFor="let userrole of userDetail">
+                        <p style="text-align:left;">{{ userrole.roles }}
+                            <i class="fa fa-pencil iconEdit" (click)="editRole(userrole)" aria-hidden="true"></i></p>
+                    </div>
+                </div>
+
+                <!-- <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>S.NO</th>
+                    <th>User Role</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let userrole of userDetail">
+                    <td>{{ userrole.id }}</td>
+                    <td>{{ userrole.roles }}</td>
+                    <td>24-09-2020</td>
+                    <td>
+                        <button class="commonBtn mt-2" (click)="editRole(userrole)"> Edit</button>
+                        <button class="commonBtn mt-2"> Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+            </div>
+
+            <div class="backdrop" [ngStyle]="{'display':display}"></div>
+            <div class="modal" id="successModel" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" *ngIf="showAdd">
+                            Add User Role
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-header" *ngIf="showEdit">
+                            Edit User Role
+                            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="dltmodal-content animate modal-body dltBl">
+
+                            <label>User Role</label>
+                            <input type="text" class="form-control" [(ngModel)]="userRole">
+
+                            <div class="addBtn" *ngIf="showAdd">
+                                <button class="commonBtn mt-2" (click)="addUserRole()"> Add User Role</button>
+                            </div>
+                            <div class="addBtn" *ngIf="showEdit">
+                                <button class="commonBtn mt-2" (click)="updateUserRolee()"> Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
